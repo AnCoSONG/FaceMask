@@ -1,13 +1,14 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div class="fashion">这是国潮脸谱页面，展示一些脸谱潮品</div>
 </template>
+
 <script>
 export default {
-  name: "About",
+  name: "Fashion",
   data() {
-    return {};
+    return {
+
+    }
   },
   mounted() {
     let self = this;
@@ -45,8 +46,9 @@ export default {
   }
 };
 </script>
+
 <style scoped>
-.about {
+.fashion {
   color: #000;
 }
 </style>

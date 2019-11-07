@@ -1,13 +1,14 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div class="yours">这是互动页面</div>
 </template>
+
 <script>
 export default {
-  name: "About",
+  name: "Yours",
   data() {
-    return {};
+    return {
+
+    }
   },
   mounted() {
     let self = this;
@@ -45,8 +46,9 @@ export default {
   }
 };
 </script>
+
 <style scoped>
-.about {
+.yours {
   color: #000;
 }
 </style>

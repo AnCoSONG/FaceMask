@@ -1,11 +1,10 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <div class="master">这是名师介绍页面</div>
 </template>
+
 <script>
 export default {
-  name: "About",
+  name: "Master",
   data() {
     return {};
   },
@@ -45,8 +44,9 @@ export default {
   }
 };
 </script>
+
 <style scoped>
-.about {
+.master {
   color: #000;
 }
 </style>
