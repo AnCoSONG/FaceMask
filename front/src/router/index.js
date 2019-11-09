@@ -37,6 +37,16 @@ const routes = [
     path:'/Fashion',
     name:'Fashion',
     component:()=>import(/* webpackChunkName: "Fashion" */ '../views/Fashion.vue')
+  },
+  {
+    path:'/Forum',
+    name:'Forum',
+    component:()=>import(/* webpackChunkName: "Forum" */ '../views/Forum.vue')
+  },
+  {
+    path:'*',
+    name:'404',
+    component:()=>import(/* webpackChunkName: "404" */ '../views/404.vue')
   }
 ]
 

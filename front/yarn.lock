@@ -5500,6 +5500,11 @@ parseurl@~1.3.2, parseurl@~1.3.3:
   resolved "https://registry.npm.taobao.org/parseurl/download/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
   integrity sha1-naGee+6NEt/wUT7Vt2lXeTvC6NQ=
 
+particles.js@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/particles.js/download/particles.js-2.0.0.tgz#21386c4328d6c7f96780a201e96eedfc09c736f6"
+  integrity sha1-IThsQyjWx/lngKIB6W7t/AnHNvY=
+
 particlesjs@^2.2.3:
   version "2.2.3"
   resolved "https://registry.npm.taobao.org/particlesjs/download/particlesjs-2.2.3.tgz#4d213ca740679fc1ccc772e8d864b884a091f37e"

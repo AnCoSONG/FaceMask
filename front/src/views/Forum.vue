@@ -1,14 +1,20 @@
 <template>
-  <div class="master">这是名师介绍页面</div>
+  <div class="forum">
+    <h1>This is forum</h1>
+    <h3>Underconstruction.</h3>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Master",
+  name: "forum",
   data() {
     return {};
   },
+
   mounted() {
+    //===================
+    /** 监控访问 BEGIN */
     let self = this;
     let loadStatus = setInterval(function() {
       if (window.loaddone && !self.$store.state.loaddone) {
@@ -32,21 +38,10 @@ export default {
         });
       }
     }
+    /** 监控访问 END */
+    //===================
   },
-  methods: {
-    goTo(name) {
-      this.$router.push(name);
-    },
-    shiftTo(name) {
-      console.log("shift to", name);
-      let topOf = $("." + name).offset().top;
-      // console.log(topOfIntro)
-      $("html,body").animate({ scrollTop: topOf }, 2000, "easeInOutExpo");
-    },
-    goBack() {
-      this.$router.go(-1);
-    }
-  },
+
   beforeRouteLeave(to, from, next) {
     console.log("You are going to route: ", to.name);
     $("#u-loader").css({
@@ -60,7 +55,14 @@ export default {
 </script>
 
 <style scoped>
-.master {
-  color: #000;
+.forum {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background: #1166dd;
 }
 </style>

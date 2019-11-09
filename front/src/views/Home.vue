@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" style="overflow:hidden;">
     <div class="bg hero"></div>
     <header class="header">
       <div class="header-inner">
@@ -10,7 +10,7 @@
     <div id="fancy_wrap">
       <div class="main">
         <div class="svg_container">百变脸谱</div>
-        <div class="description">一起传承脸谱文化</div>
+        <div class="description">传承脸谱文化 弘扬传统经典</div>
       </div>
       <elasticButton class="fancy_btn" msg="Click To Enter"></elasticButton>
     </div>
@@ -35,7 +35,7 @@
               <span id="marker">&#9;&#x26AC;&nbsp;&#9;</span>
               <span id="max">{{maxPage}}</span>
             </div>
-            <div class="main-swiper col-lg-8 col-md-10">
+            <div class="main-swiper col-lg-8 col-md-10" @click="goTo(currentName)">
               <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi deleniti, non minus ullam assumenda reiciendis odio quas voluptates nemo libero provident molestiae inventore molestias alias placeat eius unde nam ut! -->
               <swiper ref="mySwiper" :options="swiperOption" style="height:50vh;">
                 <swiper-slide class="inner-swiper rotor">
@@ -98,16 +98,16 @@
         </div>
         <div class="footer row">
           <div class="col-md-2">
-            <elasticButton class="goToAbout" msg="About"></elasticButton>
+            <elasticButton class="gotoAbout" msg="关于  About"></elasticButton>
           </div>
           <!-- <div class="col-md-4">
             <elasticButton :msg="currentName" :id="currentName" v-if="refresh"></elasticButton>
           </div>-->
           <div class="col-md-8">
-            <underlineElasticButton :msg="currentName" :id="currentName" v-if="refresh"></underlineElasticButton>
+            <underlineElasticButton :msg="currentName" :id="currentName" class="english_name" v-if="refresh"></underlineElasticButton>
           </div>
           <div class="col-md-2">
-            <elasticButton class="goBack" msg="Go Back"></elasticButton>
+            <elasticButton class="goBack" msg="返回  Go Back" style="padding-top:10px;"></elasticButton>
             <!-- <div class="progress-shower">
               <svg viewBox="0 0 54 54" style="width:32px; height:32px;">
                 <path class="path-loop-bg" d="M27,2A25,25,0,1,1,2,27,25,25,0,0,1,27,2" />
@@ -122,7 +122,7 @@
           </div>
         </div>
       </div>
-      <div id="mousePao" class="hidden-sm-and-down"></div>
+      <div id="mousePao" class></div>
     </div>
   </div>
 </template>
@@ -161,6 +161,12 @@ export default {
         },
 
         on: {
+          autoplayStart: () => {
+            console.log(Date.now(), "Swiper start to autoplay");
+          },
+          autoplayStop: () => {
+            console.log(Date.now(), "Swiper stop autoplaying");
+          },
           init: () => {
             if (this.swiper) {
               console.log("aaa");
@@ -260,68 +266,74 @@ export default {
       //这边可以在返回的时候直接返回到主页部分
       //这里动画还会改
       if (this.$store.state.transiting) {
-        console.log("Transiting back")
-        $("#u-loader").css("clip-path", "circle(0%)");
+        console.log("Transiting back");
+        $("#u-loader").css({
+          "clip-path": "circle(0%)",
+          "-webkit-clip-path": "circle(0%)"
+        });
         this.$store.commit("DoneTransite");
       }
       $("#fancy_wrap").css("visibility", "visible");
       animateCSS("#fancy_wrap", "zoomIn");
       //动画完成
-      clearInterval(loadStatus)
+      clearInterval(loadStatus);
     }
 
     /* 监测进入完成 */
+    // 首先监测是否是safari，如果是，就暂时不绑定效果，后期可以考虑用parallax
+    // console.log(IsSafari())
+    if (!IsSafari()) {
+      /**
+       * Hero 3d 效果 上下放大缩小 左右旋转
+       */
 
-    /**
-     * Hero 3d 效果 上下放大缩小 左右旋转
-     */
+      // 初始化,封装方法将效果代码在进入后调用
+      TweenLite.set($(".hero"), {
+        rotationY: 0,
+        rotationX: 0,
+        rotationZ: 0,
+        scale: 1.05,
+        transformPerspective: 1000
+      });
+      // 鼠标over和鼠标move
 
-    // 初始化,封装方法将效果代码在进入后调用
-    TweenLite.set($(".hero"), {
-      rotationY: 0,
-      rotationX: 0,
-      rotationZ: 0,
-      scale: 1.05,
-      transformPerspective: 1000
-    });
-    // 鼠标over和鼠标move
-    $(".home")
-      .mouseover(function() {
-        $(".home").mousemove(function(e) {
-          let x = e.pageX - $(this).offset().left,
-            y = e.pageY - $(this).offset().top;
+      $(".home")
+        .mouseover(function() {
+          $(".home").mousemove(function(e) {
+            let x = e.pageX - $(this).offset().left,
+              y = e.pageY - $(this).offset().top;
 
-          let px = x / $(this).width(),
-            py = y / $(this).height();
-          let xx = -2 + 4 * px,
-            yy = 2 - 4 * py;
+            let px = x / $(this).width(),
+              py = y / $(this).height();
+            let xx = -2 + 4 * px,
+              yy = 2 - 4 * py;
 
-          let sy = py / 20;
+            let sy = py / 20;
 
-          TweenMax.to($(".hero"), 0.5, {
-            scale: 1.05 + sy,
-            rotationY: xx,
-            rotationX: yy,
+            TweenMax.to($(".hero"), 0.5, {
+              scale: 1.05 + sy,
+              rotationY: xx,
+              rotationX: yy,
+              rotationZ: 0,
+              transformPerspective: 1000,
+              ease: Quad.easeOut,
+              delay: 0.1
+            });
+          });
+        })
+        .mouseout(function() {
+          $(this).unbind("mousemove");
+          //TweenMax.killTweensOf($(this));
+          TweenLite.to($(".hero"), 0.5, {
+            scale: 1.05,
+            rotationY: 0,
+            rotationX: 0,
             rotationZ: 0,
             transformPerspective: 1000,
-            ease: Quad.easeOut,
-            delay: 0.1
+            ease: Quad.easeOut
           });
         });
-      })
-      .mouseout(function() {
-        $(this).unbind("mousemove");
-        //TweenMax.killTweensOf($(this));
-        TweenMax.to($(".hero"), 0.5, {
-          scale: 1.05,
-          rotationY: 0,
-          rotationX: 0,
-          rotationZ: 0,
-          transformPerspective: 1000,
-          ease: Quad.easeOut
-        });
-      });
-
+    }
     /*
      * Hero 3d 效果结束
      */
@@ -334,9 +346,24 @@ export default {
       /* 在这里初始化旋转进度条 */
       console.log(self);
 
+      // 补充art按钮绑定
       $("#Art").click(function(e) {
         console.log("clicked");
         self.goTo("Art");
+      });
+      // 绑定about按钮
+      $(".gotoAbout").click(function(e) {
+        self.goTo("About");
+      });
+
+      $(".goBack").click(function(e) {
+        console.log("alive")
+        $(".home_inner").css({
+          "clip-path": "circle(0%)",
+          "-webkit-clip-path": "circle(0%)"
+        });
+        // $(".home").bind("mouseover"); //解绑mouseover事件
+        self.swiper.autoplay.stop(); //停止自动播放
       });
       // console.log(anime());
       // anime({
@@ -348,13 +375,17 @@ export default {
       //   direction: "normal"
       // });
 
-      $(".home_inner").css("clip-path", "circle(100%)");
-      $(".home").unbind("mouseover"); //解绑mouseover事件
-      self.swiper.autoplay.start(); //开始自动播放
-      self.swiper.autoplay.disableOnInteraction = false;
-      self.swiper.autoplay.delay = 5000;
+      $(".home_inner").css({
+        "clip-path": "circle(100%)",
+        "-webkit-clip-path": "circle(100%)"
+      });
+      // $(".home").unbind("mouseover"); //解绑mouseover事件
+      self.swiper.autoplay.start({ delay: 5000, disableOnInteraction: false }); //开始自动播放
+      // self.swiper.autoplay.disableOnInteraction = false;
 
-      console.log(self.swiper.autoplay);
+      // self.swiper.autoplay.delay = 5000;
+
+      // console.log(self.swiper.autoplay);
 
       //初始化rotor
       //为中间的图片加上3d效果，这个效果与hero不同，上下左右均旋转
@@ -377,14 +408,18 @@ export default {
           // 检测压在什么上面
           // console.log(e)
           if (
-            e.target.className.indexOf("swiper-slide") !== -1 ||
-            e.target.className.indexOf("inner_slide") !== -1
+            // e.target.className.indexOf("swiper-slide") !== -1 ||
+            // e.target.className.indexOf("inner_slide") !== -1 ||
+            // e.target.className.indexOf("center-img") !== -1 ||
+            // e.target.className.indexOf("center-text") !== -1
+            e.target.className.indexOf("main-swiper") !== -1
           ) {
             $("#mousePao").animate(
               { width: 50, height: 50 },
               100,
               "easeOutSine"
             );
+            // $('#mousePao').css("z-index",10);
             $("#mousePao").text("Enter");
           } else if (e.target.className.indexOf("prev") !== -1) {
             $("#mousePao").animate(
@@ -481,10 +516,14 @@ export default {
           if (e.deltaY > 30) {
             if (!self.swiper.animating) {
               self.swiper.slidePrev();
+              // console.log(self.swiper)
+              self.swiper.autoplay.start();
             }
           } else if (e.deltaY < -30) {
             if (!self.swiper.animating) {
               self.swiper.slideNext();
+              // console.log(self.swiper)
+              self.swiper.autoplay.start();
             }
           }
         }
@@ -494,6 +533,11 @@ export default {
   methods: {
     goTo(name) {
       this.$router.push(name);
+    },
+    restartAutoPlay() {
+      console.log("A");
+      this.swiper.autoplay.start();
+      // console.log(this.swiper)
     }
   },
   watch: {},
@@ -503,9 +547,12 @@ export default {
   // },
   beforeRouteLeave(to, from, next) {
     console.log("You are going to route: ", to.name);
-    $("#u-loader").css("clip-path", "circle(100%)");
+    $("#u-loader").css({
+      "clip-path": "circle(100%)",
+      "-webkit-clip-path": "circle(100%)"
+    });
     this.$store.commit("beginTransite");
-    next()
+    next();
   }
 };
 </script>
@@ -517,6 +564,7 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .bg {
@@ -612,6 +660,7 @@ export default {
 
 .home .home_inner {
   /* display: none; */
+  /* visibility: hidden; */
   position: absolute;
   clip-path: circle(0%);
   width: 100%;
@@ -620,7 +669,7 @@ export default {
   left: 0;
   z-index: 9;
   background-color: black;
-  transition: clip-path 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: clip-path 1000ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .home_inner .inner_box {
@@ -667,6 +716,7 @@ export default {
 .home_inner .inner_box .content .main-swiper {
   /* background-color: aliceblue; */
   height: 100%;
+  cursor: pointer;
   /* width: 60%; */
 }
 
@@ -685,6 +735,7 @@ export default {
   display: flex;
   flex-flow: nowrap column;
   justify-content: center;
+  cursor: pointer;
   /* border: 1px #fff solid; */
 }
 .inner_slide {
@@ -711,7 +762,7 @@ export default {
 }
 
 .center-img {
-  width: 34vw;
+  width: 45vw;
   height: auto;
   border: 1px solid #fff;
 }
@@ -719,6 +770,11 @@ export default {
 .LONGLONGTEXT {
   opacity: 0;
   line-height: 0px;
+}
+
+.swiper-container {
+  /* 待定 */
+  z-index: -1;
 }
 
 .swiper-controler-group {
@@ -746,9 +802,11 @@ export default {
 /**footer */
 .footer {
   width: 100%;
-  /* font-family: "Noto Serif SC", serif;  
-  找另外的英文字体 */
-  font-family: "Comfortaa", cursive;
+  /* font-family: "Ma Shan Zheng", serif; */
+  font-family: "Noto Serif SC", serif;
+  font-weight: 700;
+  /* 找另外的英文字体 */
+  /* font-family: "Comfortaa", cursive; */
 
   padding: 0 7vw;
   position: absolute;
@@ -757,6 +815,10 @@ export default {
   display: flex;
   align-content: center;
   align-items: center;
+}
+
+.english_name {
+  cursor: pointer;
 }
 
 /* .home_inner .inner_box .main {
@@ -862,20 +924,33 @@ export default {
   /* .inner_slide {
     min-width: 100vw;
   } */
+  .center-img {
+    width: 60vw;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 992px) {
   /* .inner_slide {
     min-width: 66vw;
   } */
+  .center-img {
+    width: 54vw;
+  }
+
+  .center-text {
+    font-size: 7vw;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+@media (min-width: 992px) and (max-width: 1200px) {
   /* .inner_slide {
     min-width: 66vw;
   } */
+  .center-img {
+    width: 48vw;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

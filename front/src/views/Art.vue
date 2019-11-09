@@ -3,18 +3,32 @@
     <!-- 这是脸谱艺术页面，包括脸谱介绍，脸谱历史，脸谱分类等内容。点击后进入子页。 -->
     <div class="header">
       <div class="header-inner">
-        <div class="logo">百变脸谱</div>
+        <div class="logo" @click="goTo('/')">百变脸谱</div>
         <div class="menu hidden-sm-and-down">
           <elasticButton class="menu-item active" msg="脸谱艺术" id="artB"></elasticButton>
           <elasticButton class="menu-item" msg="脸谱名家" id="masterB"></elasticButton>
           <elasticButton class="menu-item" msg="国潮脸谱" id="fashionB"></elasticButton>
           <elasticButton class="menu-item" msg="互动脸谱" id="yoursB"></elasticButton>
+          <div
+            class="menu-item backbtn"
+            style="position:relative"
+            @click="goBack()"
+            @mouseenter="tadaBegin"
+            @mouseleave="tadaEnd"
+          >
+            <span
+              style="display:inline-block;padding-top: 0.2em;padding-right: 0.05em;padding-bottom: 0.1em;overflow:hidden"
+            >
+              <img src="../assets/art/back.svg" alt style="width:1.2em; height:1.2em;" />
+            </span>
+          </div>
         </div>
         <div class="menu hidden-md-and-up">
           <elasticButton class="menu-item" msg="菜单"></elasticButton>
         </div>
       </div>
     </div>
+    <el-backtop :right="80" :bottom="80"></el-backtop>
     <div class="hero">
       <ul id="scene" style="width:60vw;">
         <li data-depth="0.2">
@@ -55,21 +69,95 @@
           </div>
         </div>
       </div>
-      <canvas class="particle-bg"></canvas>
+      <div id="particles-js">
+        <canvas class="particle-bg particles-js-canvas-el"></canvas>
+      </div>
       <div class="intro">
         <div class="intro_inner">
-          <h1>This part is for introduction</h1>
+          <h1 class="title-text">脸谱介绍</h1>
+          <h3 class="desc-text">
+            <strong class="strong-text">脸谱</strong>，是中国传统戏曲演员脸上的绘画，
+            用于舞台演出时的化妆造型艺术。不同行
+            当的脸谱，情况不一。“生”、“旦”面
+            部妆容简单，略施脂粉，叫“俊扮”、
+            “素面”、“洁面”。而“净行”与“丑
+            行”面部绘画比较复杂，特别是净，都是
+            重施油彩的，图案复杂，因此称“花脸”。
+            戏曲中的脸谱，主要指净的面部绘画。而
+            “丑”，因其扮演戏剧角色，故在鼻梁上
+            抹一小块白粉，俗称小花脸。
+          </h3>
+        </div>
+        <div class="operator" @click="wannaSupply('intro')">
+          <elasticButton msg="我有补充？"></elasticButton>
         </div>
       </div>
       <div class="histo">
         <div class="histo_inner">
-          <h1>This part is for history</h1>
+          <h1 class="title-text">脸谱历史</h1>
+          <h3 class="desc-text">
+            <p>
+              五彩缤纷的戏剧
+              <strong class="strong-text">脸谱</strong>不同于面具，
+              它是中国独具风格的造型艺术。
+            </p>
+            <p>
+              <strong class="strong-text">脸谱</strong>，起源于原始图腾（约550年），
+              后来逐渐演变成艺术化的戏剧脸谱。
+            </p>
+            <p>
+              据《旧唐书·音乐志》和唐段安节撰
+              《乐府杂录》记载，公元550年的北齐
+              兰陵王高长恭英勇善战，但因貌美少威，
+              因而每次作战就戴上狰狞的假面具。到
+              了唐代就发展成为一种“代面”的歌舞
+              形式，这种戴面具的演出，观众看不到
+              演员的表情，妨碍对戏剧艺术的欣赏，
+              后来就不戴面具了，发展为将面具上的
+              花纹直接画在脸上的化妆艺术。
+            </p>
+          </h3>
+          <div class="operator" @click="wannaSupply('histo')">
+            <elasticButton msg="我有补充？"></elasticButton>
+          </div>
         </div>
       </div>
       <div class="exhib">
         <div class="exhib_inner">
-          <h1>This part is for exhibition</h1>
+          <h1 class="title-text">脸谱展示</h1>
+          <div class="mask-list">
+            <div class="each-mask" @mouseenter="activateMe(1)" @mouseleave="deactivateMe(1)">
+              <img src="../assets/art/安禄山.png" alt="安禄山" />
+            </div>
+            <div class="each-mask" @mouseenter="activateMe(2)" @mouseleave="deactivateMe(2)">
+              <img src="../assets/art/程咬金.png" alt="程咬金" />
+            </div>
+            <div class="each-mask" @mouseenter="activateMe(3)" @mouseleave="deactivateMe(3)">
+              <img src="../assets/art/赤福寿《取金陵》.png" alt="赤福寿" />
+            </div>
+            <div class="each-mask hidden-xs-only" @mouseenter="activateMe(4)" @mouseleave="deactivateMe(4)">
+              <img src="../assets/art/廉颇.png" alt="廉颇" />
+            </div>
+            <div class="each-mask hidden-sm-and-down" @mouseenter="activateMe(5)" @mouseleave="deactivateMe(5)">
+              <img src="../assets/art/司马懿.png" alt="司马懿" />
+            </div>
+            <div class="each-mask hidden-md-and-down" @mouseenter="activateMe(6)" @mouseleave="deactivateMe(6)">
+              <img src="../assets/art/夏侯惇.png" alt="夏侯惇" />
+            </div>
+          </div>
+          <div class="mask-name">
+            鼠标划动到上方图像查看信息。
+          </div>
+          <div class="operator" @click="wannaSupply('exhib')">
+            <elasticButton msg="我有补充？"></elasticButton>
+          </div>
         </div>
+        <!-- <div class="interlayer"></div> -->
+      </div>
+      <div class="footer">
+        <h1 class="chinese">百变脸谱</h1>
+        <h2 class="english">Fancy Mask</h2>
+        <p>All Copyright Reserved.</p>
       </div>
     </div>
   </div>
@@ -78,6 +166,7 @@
 <script>
 import Parallax from "parallax-js";
 import Particles from "particlesjs";
+// import particlesJS from "particles.js/particles"
 import elasticButton from "@/components/elasticButton.vue";
 import underlineElasticButton from "@/components/underlineElasticButton.vue";
 import { TimelineMax } from "gsap";
@@ -89,7 +178,16 @@ export default {
     underlineElasticButton
   },
   data() {
-    return {};
+    return {
+      maskList:[
+        {name:'安禄山', work: '未知作品'},
+        {name:'程咬金', work: '未知作品'},
+        {name:'赤福寿', work: '《取金陵》'},
+        {name:'廉颇', work: '未知作品'},
+        {name:'司马懿',work: '未知作品'},
+        {name:'夏侯惇', work: '未知作品'}
+      ]
+    };
   },
 
   mounted() {
@@ -112,7 +210,10 @@ export default {
       if (this.$store.state.transiting) {
         // console.log("ss")
         this.$store.commit("DoneTransite");
-        $("#u-loader").css("clip-path", "circle(0%)");
+        $("#u-loader").css({
+          "clip-path": "circle(0%)",
+          "-webkit-clip-path": "circle(0%)"
+        });
       }
     }
     /** 监控访问 END */
@@ -126,26 +227,33 @@ export default {
       var particles = Particles.init({
         selector: ".particle-bg",
         color: "#000",
-        speed: 0.7,
-        maxParticles: 120
+        speed: 0.5,
+        maxParticles: 100
       });
+      // console.log(ParticlesJS())
+      // let p = particlesJS('particles-js', particlesJSON)
+      // console.log(p)
       /** 加载完成 */
       //===================
       //===================
       /** 顶部滚动事件绑定 */
       let offsetTop = $(".main-part").offset().top;
+      let offsetTop2 = $(".intro").offset().top;
       // console.log(offsetTop);
       $(window).scroll(function(e) {
         let scrollTop = $(window).scrollTop();
 
         // console.log(offsetTop, scrollTop);
-        if (offsetTop - 100 < scrollTop) {
+        if (offsetTop - 100 < scrollTop && scrollTop < offsetTop2 - 80) {
           // 在main-part区域内即为深色
           $(".header").css("color", "#222");
         } else {
           $(".header").css("color", "#fff");
         }
-        
+
+        if (scrollTop == 0) {
+          $(".header").css({ transform: "translateY(5%)", opacity: 1 });
+        }
       });
       /**顶部滚动颜色改变 DONE */
       //======================
@@ -203,6 +311,127 @@ export default {
       })
         .addTo(controller)
         .setTween(timelineEffectText.play());
+
+      // let controllerIntro = new ScrollMagic.Controller({loglevel:3})
+      let timelineEffectIntro = new TimelineMax({ paused: true });
+      timelineEffectIntro
+        .fromTo(
+          ".intro .intro_inner h1",
+          0.75,
+          { autoAlpha: 0, y: 128 },
+          { autoAlpha: 1, y: 0 }
+        )
+        .fromTo(
+          ".intro .intro_inner h3",
+          0.75,
+          { autoAlpha: 0, y: 128 },
+          { autoAlpha: 1, y: 0 },
+          "-=0.25"
+        )
+        .fromTo(
+          ".intro .operator",
+          0.75,
+          { autoAlpha: 0, y: 64 },
+          { autoAlpha: 1, y: 0 }
+        );
+      new ScrollMagic.Scene({
+        triggerElement: ".intro",
+        triggerHook: "onEnter",
+        offset: 400
+      })
+        .addTo(controller)
+        .setTween(timelineEffectIntro.play());
+
+      // let controllerHisto = new ScrollMagic.Controller({ loglevel: 3});
+      let timelineEffectHisto = new TimelineMax({ paused: true });
+      timelineEffectHisto
+        .fromTo(
+          ".histo .histo_inner h1",
+          0.75,
+          { autoAlpha: 0, y: 128 },
+          { autoAlpha: 1, y: 0 },
+          "-=0.25"
+        )
+        .fromTo(
+          ".histo .histo_inner h3 p:eq(0)",
+          0.75,
+          { autoAlpha: 0, x: -128 },
+          { autoAlpha: 1, x: 0 }
+        )
+        .fromTo(
+          ".histo .histo_inner h3 p:eq(1)",
+          0.75,
+          { autoAlpha: 0, x: -128 },
+          { autoAlpha: 1, x: 0 },
+          "-=0.5"
+        )
+        .fromTo(
+          ".histo .histo_inner h3 p:eq(2)",
+          0.75,
+          { autoAlpha: 0, x: -128 },
+          { autoAlpha: 1, x: 0 },
+          "-=0.5"
+        )
+        .fromTo(
+          ".histo .operator",
+          0.75,
+          { autoAlpha: 0, y: 128 },
+          { autoAlpha: 1, y: 0 },
+          "-=0.25"
+        );
+      new ScrollMagic.Scene({
+        triggerElement: ".histo",
+        triggerHook: "onEnter",
+        offset: 400
+      })
+        .addTo(controller)
+        .setTween(timelineEffectHisto.play());
+
+      // let controllerExhib = new ScrollMagic.Controller({loglevel: 3})
+      let timelineEffectExhib = new TimelineMax({ paused: true });
+      timelineEffectHisto
+        .fromTo(
+          ".exhib .exhib_inner h1",
+          0.75,
+          { autoAlpha: 0, y: 128 },
+          { autoAlpha: 1, y: 0 },
+          "-=0.25"
+        )
+        .fromTo(
+          ".exhib .exhib_inner .mask-list .each-mask:odd",
+          0.75,
+          { autoAlpha: 0, y: 128 },
+          { autoAlpha: 1, y: 0 }
+        )
+        .fromTo(
+          ".exhib .exhib_inner .mask-list .each-mask:even",
+          0.75,
+          { autoAlpha: 0, y: -128 },
+          { autoAlpha: 1, y: 0 },
+          "-=0.75"
+        )
+        .fromTo(
+          ".exhib .exhib_inner .mask-name",
+          0.75,
+          { autoAlpha: 0, y: -128},
+          { autoAlpha: 1, y: 0},
+          "-=0.25"
+        )
+        .fromTo(
+          ".exhib .exhib_inner .operator",
+          0.75,
+          { autoAlpha:0, y: -128},
+          { autoAlpha:1, y: 0},
+          "-=0.25"
+        )
+      new ScrollMagic.Scene({
+        triggerElement: ".exhib",
+        triggerHook: "onEnter",
+        offset: 400
+      })
+        .addTo(controller)
+        .setTween(timelineEffectExhib.play());
+
       //======================
 
       //======================
@@ -240,7 +469,7 @@ export default {
       /** 菜单按钮绑定 */
       $("#artB").click(function(e) {
         // self.goTo("Art");
-        self.shiftTo("main-part")
+        self.shiftTo("main-part");
       });
       $("#masterB").click(function(e) {
         self.goTo("Master");
@@ -255,22 +484,78 @@ export default {
       /** 菜单按钮绑定 DONE*/
       //======================
 
+      //======================
+      /** safari竖排文字排版兼容性问题 */
+      if (IsSafari()) {
+        $("h3").css({ "writing-mode": "horizontal-tb", width: "60vw" });
+      }
+      /** safari竖排文字排版兼容性问题 */
+      //=====================
     });
   },
   methods: {
     goTo(name) {
       this.$router.push(name);
     },
-    shiftTo(name){
-      console.log("shift to", name)
-      let topOf = $('.'+name).offset().top
-        // console.log(topOfIntro)
-        $('html,body').animate({scrollTop:topOf}, 2000, 'easeInOutExpo')
+    shiftTo(name) {
+      console.log("shift to", name);
+      let topOf = $("." + name).offset().top;
+      // console.log(topOfIntro)
+      $("html,body").animate({ scrollTop: topOf }, 2000, "easeInOutExpo");
+    },
+    wannaSupply(partname) {
+      alert("You wanna supply "+partname);
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
+    tadaBegin() {
+      $(".backbtn").addClass("animated swing");
+    },
+    tadaEnd() {
+      $(".backbtn").removeClass("animated swing");
+    },
+    activateMe(num) {
+      let self = this;
+      let seq = num - 1;
+      let allMask = $(".each-mask");
+      for (let i = 0; i < allMask.length; i++) {
+        if(i===seq){
+          $('.each-mask:eq('+i+')').css({
+            transform: 'scale(1.3)',
+            clipPath:'cirlce(100%)',
+            '-webkit-clip-path':'circle(100%)'
+          })
+          let maskInfo = self.maskList[i]
+          $('.mask-name').text(maskInfo.name+" — "+maskInfo.work)
+        }else{
+          $('.each-mask:eq('+i+')').css({
+            transform: 'scale(0.8)',
+            filter: 'blur(1px) brightness(0.3)'
+          })
+        }
+      }
+    },
+    deactivateMe(num) {
+      $('.each-mask').css({
+        filter: 'none',
+        transform: 'scale(1)'
+
+      })
+      let seq = num - 1;
+      $('.each-mask:eq('+seq+')').css({
+        clipPath: 'cirlce(40%)',
+        '-webkit-clip-path':'circle(40%)'
+      });
+      $('.mask-name').text("鼠标划动到脸谱上查看信息。")
     }
   },
   beforeRouteLeave(to, from, next) {
     console.log("You are going to route: ", to.name);
-    $("#u-loader").css("clip-path", "circle(100%)");
+    $("#u-loader").css({
+      "clip-path": "circle(100%)",
+      "-webkit-clip-path": "circle(100%)"
+    });
     this.$store.commit("beginTransite");
     next();
   }
@@ -341,8 +626,15 @@ export default {
   font-family: "Liu Jian Mao Cao", cursive;
 
   font-size: 2em;
-  pointer-events: none;
+  /* pointer-events: none; */
+  cursor: pointer;
   transition: color 300ms cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+.header .header-inner .logo:hover {
+  text-shadow: 0 1px 0 #666, 0 -1px 0 #666, 1px 0 0 #666, -1px 0 0 #666,
+    3px 3px 0 #666;
+  /* color:#aaa; */
 }
 
 .header .header-inner .menu {
@@ -449,21 +741,198 @@ export default {
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-flow: wrap row;
+  flex-flow: wrap column;
   justify-content: center;
   align-content: center;
   align-items: center;
+  color: #fff;
+  font-family: "Zhi Mang Xing", cursive;
+  cursor: default;
+  /* font-family: "Ma Shan Zheng", serif; */
+
+  /* pointer-events: none; */
 }
 
 .intro {
-  background:rgba(0, 0, 0, 0.1);
+  background: url(../assets/art/introduction.jpg) no-repeat center center;
+  background-size: cover;
+  /* background:chocolate; */
 }
 
 .histo {
-  background: #fff222;
+  background: url(../assets/art/history.jpg) no-repeat center center;
+  background-size: cover;
 }
 
 .exhib {
-  background: #222aaa;
+  background: url(../assets/art/exhibition.jpg) no-repeat center center;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: multiply;
+}
+
+.title-text {
+  font-size: 4rem;
+  text-shadow: 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000,
+    3px 3px 0 #000;
+}
+
+.histo .title-text {
+  text-shadow: 0 1px 0 #666, 0 -1px 0 #666, 1px 0 0 #666, -1px 0 0 #666,
+    3px 3px 0 #666;
+}
+
+.desc-text {
+  margin-top: 8vh;
+  text-align: left;
+  height: auto;
+  writing-mode: vertical-rl;
+  height: 40%;
+  line-height: 1.4;
+  /* font-size: 2vw; */
+  /* font-family: "Noto Serif SC", serif; */
+  font-family: "Ma Shan Zheng", serif;
+  font-weight: 400;
+}
+
+.desc-text .strong-text {
+  /* font-size: 2.1rem; */
+
+  text-shadow: 0 0.5px 0 #000, 0 -0.5px 0 #000, 0.5px 0 0 #000, -0.5px 0 0 #000,
+    2px 2px 0 #000;
+}
+
+.histo .desc-text .strong-text {
+  /* font-size: 2.1rem; */
+
+  text-shadow: 0 0.5px 0 #666, 0 -0.5px 0 #666, 0.5px 0 0 #666, -0.5px 0 0 #666,
+    2px 2px 0 #666;
+}
+
+.desc-text .strong-text:hover {
+  color: #aaa;
+}
+
+.operator {
+  position: relative;
+  bottom: -12vh;
+  font-family: "Noto Serif SC", serif;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
+}
+
+.exhib .exhib_inner .mask-list {
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-top: 8vh;
+  padding-bottom: 8vh;
+}
+
+.exhib .exhib_inner .mask-list .each-mask {
+  /* z-index: 2; */
+  width: 10vw;
+  height: 10vw;
+  background-color: #666;
+  margin: 0 1vw;
+  transition: all 500ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  clip-path: circle(40%);
+  -webkit-clip-path: circle(40%);
+  z-index: 3;
+  cursor: pointer;
+}
+
+.exhib .exhib_inner .mask-name {
+  font-family: "Ma Shan Zheng", serif;
+  font-size: 1.5em;  
+}
+
+.exhib .exhib_inner .mask-list .each-mask img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+
+/* .exhib .interlayer{
+  z-index:2;
+  background:#222;
+
+  position: absolute;
+  top:400vh;
+  left:0;
+  width:100%;
+  height: 100%;
+} */
+
+.footer {
+  height: auto;
+  width: 100%;
+  padding: 100px;
+}
+.footer .chinese {
+  font-family: "Liu Jian Mao Cao", cursive;
+  margin: 20px;
+}
+
+.footer .english {
+  font-family: "Lakki Reddy", cursive;
+  margin: 20px;
+}
+
+.el-backtop {
+  color: #121212 !important;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 768px) {
+  .intro .desc-text {
+    font-size: 4vw;
+  }
+
+  .histo .desc-text {
+    font-size: 3vw;
+  }
+
+  .exhib .exhib_inner .mask-list .each-mask {
+    width: 20vw;
+    height: 20vw;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .exhib .exhib_inner .mask-list .each-mask {
+    width: 18vw;
+    height: 18vw;
+  }
+  .histo .desc-text {
+    font-size: 2.5vw;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1200px) {
+  /* .inner_slide {
+    min-width: 66vw;
+  } */
+  .exhib .exhib_inner .mask-list .each-mask {
+    width: 15vw;
+    height: 15vw;
+  }
+
+  .histo .desc-text {
+    font-size: 2.5vw;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  /* .histo .desc-text {
+    font-size: 3vw;
+  } */
 }
 </style>
