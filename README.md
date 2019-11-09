@@ -65,3 +65,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### 草案
 
 - [ ] 论坛页面
+
+### BUG
+
+- [ ] 粒子超速
