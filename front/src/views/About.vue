@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1 style="font-size:8vw;">
+    <h1>
       关于我们
       <h3 style="font-family:'Noto Sans SC', serif;font-weight:700;">About Us</h3>
     </h1>
@@ -45,7 +45,10 @@ export default {
       if (this.$store.state.transiting) {
         // console.log("ss")
         this.$store.commit("DoneTransite");
-        $("#u-loader").css("clip-path", "circle(0%)");
+        $("#u-loader").css({
+          "clip-path": "circle(0%)",
+          "-webkit-clip-path": "circle(0%)"
+        });
       }
     }
   },
@@ -59,7 +62,10 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     console.log("You are going to route: ", to.name);
-    $("#u-loader").css("clip-path", "circle(100%)");
+    $("#u-loader").css({
+      "clip-path": "circle(100%)",
+      "-webkit-clip-path": "circle(100%)"
+    });
     this.$store.commit("beginTransite");
     next();
   }
@@ -75,9 +81,24 @@ export default {
   align-content: center;
   align-items: center;
   /* background: #1166dd; */
-  background: url(../assets/about/bg.png) no-repeat center center;
+  background: url(../assets/about/bgpro.jpg) no-repeat center center;
   background-size: cover;
   color: #222;
   font-family: "Ma Shan Zheng", serif;
+}
+
+::selection {
+  color:white;
+  background-color: transparent;
+}
+
+.about h1 {
+  font-size: 8vw;
+}
+
+@media (max-width:450px){
+  .about h1 {
+    font-size: 4rem;
+  }
 }
 </style>

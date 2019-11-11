@@ -1,6 +1,6 @@
 <template>
   <div class="Notfound">
-    <h1 style="font-size:10vw;">
+    <h1>
       404
       <h3>Page Not Found.</h3>
     </h1>
@@ -83,8 +83,23 @@ export default {
   align-content: center;
   align-items: center;
   /* background: #1166dd; */
-  background: url(../assets/about/bg.png) no-repeat center center;
+  background: url(../assets/about/bgpro.jpg) no-repeat center center;
   background-size: cover;
   color:#222;
+}
+
+.Notfound h1 {
+  font-size: 10vw;
+}
+
+::selection {
+  color:white;
+  background-color: transparent;
+}
+
+@media (max-width:450px){
+  .Notfound h1 {
+    font-size: 4rem;
+  }
 }
 </style>

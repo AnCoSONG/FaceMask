@@ -96,7 +96,7 @@
 
       .loader .loader_content .loading_text {
         position: absolute;
-        font-size: 2vw;
+        font-size: 2rem;
         bottom: -100px;
         left: 0;
         right: 0;
@@ -201,16 +201,23 @@
 
     </style>
     <script type="text/javascript">
-      //随机添加svg到content_text下
-      // 暂时不用
       function IsSafari() {
         console.log("User Agent", navigator.userAgent);
         let isSafari = /^((?!chrome|android).)*safari/i.test(
           navigator.userAgent
-        );
-        return isSafari;
-      }
-
+          );
+          return isSafari;
+        }
+        function IsFireFox(){
+          let userAgent = navigator.userAgent
+          if(userAgent.indexOf("Firefox")!==-1){
+            return true;
+          }
+          return false;
+        }
+        
+        //随机添加svg到content_text下
+        // 暂时不用
       function randomInsertSVG() {
         let randNum = Math.floor(Math.random() * 2) + 1;
         console.log(randNum);
@@ -269,7 +276,7 @@
     </script>
   </head>
 
-  <body>
+  <body style="overflow-x:hidden;">
     <noscript>
       <strong
         >We're sorry but front doesn't work properly without JavaScript enabled.

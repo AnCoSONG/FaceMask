@@ -4,9 +4,62 @@
     <header class="header">
       <div class="header-inner">
         <div class="logo">Fancy Mask</div>
-        <!-- <div class="menu hidden-md-and-up">菜单（待定制）</div> -->
+        <div class="menu hidden-md-and-up">
+          <div
+            class="menu-item callOutMenu"
+            style="font-size:1.8em;"
+            @mouseenter="animateBegin('callOutMenu','tada')"
+            @mouseleave="animateEnd('callOutMenu','tada')"
+          >菜单</div>
+        </div>
       </div>
     </header>
+    <div class="menu-top-wrapper">
+      <div class="menu-wrapper" style="transform:translateY(100%)">
+        <div class="menu-inner" style="transform:translateY(-100%)">
+          <div class="menu-body">
+            <nav class="navigator">
+              <ul class="nav-list">
+                <li class="nav-item">
+                  <router-link to="Art" class="nav-link">
+                    脸谱艺术
+                    <small>Art</small>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="Master" class="nav-link">
+                    脸谱名家
+                    <small>Master</small>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="Fashion" class="nav-link">
+                    国潮脸谱
+                    <small>Fashion</small>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="Yours" class="nav-link">
+                    互动脸谱
+                    <small>Yours</small>
+                  </router-link>
+                </li>
+                <!-- <li class="nav-item backHome">
+                  <router-link to="/" class="nav-link">
+                    返回首页
+                    <small>Home</small>
+                  </router-link>
+                </li>-->
+              </ul>
+            </nav>
+            <div class="center-bg-text">
+              <span class="txt">百变脸谱</span>
+            </div>
+            <div class="bottom-desc">百变脸谱团队.</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="fancy_wrap">
       <div class="main">
         <div class="svg_container">百变脸谱</div>
@@ -43,7 +96,7 @@
                     <p
                       class="LONGLONGTEXT"
                     >Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur magni sequi voluptatum at, reprehenderit quasi, vero praesentium obcaecati pariatur ipsam esse. Omnis aperiam id nisi mollitia excepturi minima amet error!</p>
-                    <img src="../assets/home/art.png" alt="Thumbnail" class="center-img" />
+                    <img src="../assets/home/artpro.jpg" alt="Thumbnail" class="center-img" />
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, molestias mollitia voluptate illo repellat voluptas placeat? Nobis expedita modi magnam, praesentium ea earum distinctio facere voluptatum mollitia commodi perspiciatis id. -->
                     <!-- <img src="../assets/home/art.png" alt="" width="200" height="auto" style="object-fit:contain;z-index:-2;"> -->
                     <h3 class="center-text">脸谱艺术</h3>
@@ -54,10 +107,10 @@
                     <p
                       class="LONGLONGTEXT"
                     >Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur magni sequi voluptatum at, reprehenderit quasi, vero praesentium obcaecati pariatur ipsam esse. Omnis aperiam id nisi mollitia excepturi minima amet error!</p>
-                    <img src="../assets/home/master.png" alt="Thumbnail" class="center-img" />
+                    <img src="../assets/home/masterpro.jpg" alt="Thumbnail" class="center-img" />
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, molestias mollitia voluptate illo repellat voluptas placeat? Nobis expedita modi magnam, praesentium ea earum distinctio facere voluptatum mollitia commodi perspiciatis id. -->
                     <!-- <img src="../assets/home/art.png" alt="" width="200" height="auto" style="object-fit:contain;z-index:-2;"> -->
-                    <h3 class="center-text">脸谱大师</h3>
+                    <h3 class="center-text">脸谱名家</h3>
                   </div>
                 </swiper-slide>
                 <swiper-slide class="inner-swiper rotor">
@@ -65,7 +118,7 @@
                     <p
                       class="LONGLONGTEXT"
                     >Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur magni sequi voluptatum at, reprehenderit quasi, vero praesentium obcaecati pariatur ipsam esse. Omnis aperiam id nisi mollitia excepturi minima amet error!</p>
-                    <img src="../assets/home/fashion.png" alt="Thumbnail" class="center-img" />
+                    <img src="../assets/home/fashionpro.jpg" alt="Thumbnail" class="center-img" />
                     <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, molestias mollitia voluptate illo repellat voluptas placeat? Nobis expedita modi magnam, praesentium ea earum distinctio facere voluptatum mollitia commodi perspiciatis id. -->
                     <!-- <img src="../assets/home/art.png" alt="" width="200" height="auto" style="object-fit:contain;z-index:-2;"> -->
                     <h3 class="center-text">国潮脸谱</h3>
@@ -77,7 +130,7 @@
                       class="LONGLONGTEXT"
                     >Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur magni sequi voluptatum at, reprehenderit quasi, vero praesentium obcaecati pariatur ipsam esse. Omnis aperiam id nisi mollitia excepturi minima amet error!</p>
                     <img
-                      src="../assets/home/artificial.png"
+                      src="../assets/home/yourspro.jpg"
                       data-depth="0.00"
                       alt="Thumbnail"
                       class="center-img"
@@ -104,10 +157,15 @@
             <elasticButton :msg="currentName" :id="currentName" v-if="refresh"></elasticButton>
           </div>-->
           <div class="col-md-8">
-            <underlineElasticButton :msg="currentName" :id="currentName" class="english_name" v-if="refresh"></underlineElasticButton>
+            <underlineElasticButton
+              :msg="currentName"
+              :id="currentName"
+              class="english_name"
+              v-if="refresh"
+            ></underlineElasticButton>
           </div>
           <div class="col-md-2">
-            <elasticButton class="goBack" msg="返回  Go Back" style="padding-top:10px;"></elasticButton>
+            <elasticButton class="goBack" msg="返回 Back" style="padding-top:10px;"></elasticButton>
             <!-- <div class="progress-shower">
               <svg viewBox="0 0 54 54" style="width:32px; height:32px;">
                 <path class="path-loop-bg" d="M27,2A25,25,0,1,1,2,27,25,25,0,0,1,27,2" />
@@ -201,19 +259,20 @@ export default {
       currentPage: 1,
       maxPage: 4,
       maskList: [
-        { han: "脸谱艺术", en: "Art", imgUrl: "../assets/home/art.png" },
-        { han: "脸谱名家", en: "Master", imgUrl: "../assets/home/master.png" },
+        { han: "脸谱艺术", en: "Art", imgUrl: "../assets/home/art.jpg" },
+        { han: "脸谱名家", en: "Master", imgUrl: "../assets/home/master.jpg" },
         {
           han: "国潮脸谱",
           en: "Fashion",
-          imgUrl: "../assets/home/fashion.png"
+          imgUrl: "../assets/home/fashion.jpg"
         },
         {
           han: "你的脸谱",
           en: "Yours",
-          imgUrl: "../assets/home/artificial.png"
+          imgUrl: "../assets/home/artificial.jpg"
         }
-      ]
+      ],
+      menuOpened: false
     };
   },
 
@@ -280,7 +339,66 @@ export default {
       clearInterval(loadStatus);
     }
 
-    /* 监测进入完成 */
+    /** 监控访问 END */
+    //===================
+
+    //=======================
+    /** 菜单呼出绑定 */
+    $(".callOutMenu").click(function(e) {
+      console.log("召唤菜单,alive");
+      if (!self.menuOpened) {
+        let menuTimeline = anime.timeline({
+          easing: "easeOutExpo",
+          complete: function(anim) {
+            self.menuOpened = true;
+            $(".menu-top-wrapper").addClass("active"); // 加上pointer-events:auto;开启事件监听。
+            $(".header-inner").css("color", "#fff");
+            $(".callOutMenu").text("关闭"); // 之后可以变为按钮动画
+            $("body").css("overflow-y", "hidden");
+          }
+        });
+        menuTimeline
+          .add({
+            targets: ".menu-inner",
+            translateY: "0%",
+            duration: 500
+          })
+          .add({
+            targets: ".menu-wrapper",
+            translateY: "0%",
+            duration: 500,
+            offset: "-=500"
+          });
+      } else {
+        // console.log("已经打开");
+        console.log("正在关闭");
+        let menuTimeline = anime.timeline({
+          easing: "easeInExpo",
+          complete: function(anim) {
+            self.menuOpened = false;
+            $(".header-inner").css("color", ""); //恢复
+            $(".menu-top-wrapper").removeClass("active");
+            $(".callOutMenu").text("菜单"); // 之后可以变为按钮动画
+            $("body").css("overflow-y", "auto");
+          }
+        });
+        menuTimeline
+          .add({
+            targets: ".menu-inner",
+            translateY: "100%",
+            duration: 500
+          })
+          .add({
+            targets: ".menu-wrapper",
+            translateY: "100%",
+            duration: 500,
+            offset: "-=500"
+          });
+      }
+    });
+    /** 菜单呼出绑定 */
+    //=======================
+
     // 首先监测是否是safari，如果是，就暂时不绑定效果，后期可以考虑用parallax
     // console.log(IsSafari())
     if (!IsSafari()) {
@@ -344,8 +462,9 @@ export default {
     */
     // console.log($(".home_inner"));
     $(".fancy_btn").click(function() {
-      /* 在这里初始化旋转进度条 */
-      console.log(self);
+      // console.log(self);
+      /** 激活pointer-events */
+      $(".home_inner").css("pointer-events", "auto");
 
       // 补充art按钮绑定
       $("#Art").click(function(e) {
@@ -358,7 +477,7 @@ export default {
       });
 
       $(".goBack").click(function(e) {
-        console.log("alive")
+        console.log("alive");
         $(".home_inner").css({
           "clip-path": "circle(0%)",
           "-webkit-clip-path": "circle(0%)"
@@ -539,6 +658,12 @@ export default {
       console.log("A");
       this.swiper.autoplay.start();
       // console.log(this.swiper)
+    },
+    animateBegin(className, animateName) {
+      $("." + className).addClass("animated " + animateName);
+    },
+    animateEnd(className, animateName) {
+      $("." + className).removeClass("animated " + animateName);
     }
   },
   watch: {},
@@ -552,6 +677,8 @@ export default {
       "clip-path": "circle(100%)",
       "-webkit-clip-path": "circle(100%)"
     });
+    $("body").css("overflow-y", "auto"); // 清理
+    this.menuOpened = false; // 清理
     this.$store.commit("beginTransite");
     next();
   }
@@ -566,14 +693,15 @@ export default {
   align-content: center;
   align-items: center;
   overflow: hidden;
-  cursor:hand;
+  cursor: hand;
+  min-width: 400px;
 }
 
 .bg {
   position: fixed;
   top: 0;
   left: 0;
-  background: url("../assets/home_bg.jpg") no-repeat center center;
+  background: url("../assets/homepro.jpg") no-repeat center center;
   background-blend-mode: multiply;
   background-size: cover;
   height: 100vh;
@@ -619,6 +747,20 @@ export default {
   cursor: pointer;
 }
 
+.header .header-inner .menu .menu-item {
+  /* font-family: "Noto Serif SC", serif; */
+  font-family: "Ma Shan Zheng", serif;
+  font-weight: 600;
+  margin-left: 1em;
+  letter-spacing: 0.2em;
+  text-indent: 0.1em;
+  font-size: 1.2em;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 10;
+  transition: color 300ms cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
 #fancy_wrap {
   visibility: hidden;
   text-align: center;
@@ -655,16 +797,17 @@ export default {
 #fancy_wrap .main .description {
   font-weight: 600;
   font-family: "Noto Serif SC", serif;
-  font-size: 1em;
+  font-size: 1.2em;
   letter-spacing: 0.2em;
   text-shadow: 0 0.5px 0 #000, 0 -0.5px 0 #000, 0.5px 0 0 #000, -0.5px 0 0 #000,
     2px 2px 0 #000;
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .home .home_inner {
   /* display: none; */
   /* visibility: hidden; */
+  pointer-events: none;
   cursor: grab;
   position: absolute;
   clip-path: circle(0%);
@@ -672,7 +815,7 @@ export default {
   height: auto;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 8;
   background-color: black;
   transition: clip-path 1000ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
@@ -820,6 +963,7 @@ export default {
   display: flex;
   align-content: center;
   align-items: center;
+  transform: translateX(15px);
 }
 
 .english_name {
@@ -874,7 +1018,7 @@ export default {
   bottom: 10vh;
   letter-spacing: 0.05em;
   text-indent: 0.05em;
-  font-size: 1em;
+  font-size: 1.2em;
 
   font-weight: 700;
   padding: 0.4em;
@@ -925,12 +1069,31 @@ export default {
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (max-width: 768px) {
+
+@media (max-width: 450px) {
+  .center-text {
+    font-size: 3rem;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+  }
+
+  .center-img {
+    width: 80vw;
+  }
+}
+@media (min-width: 450px) and (max-width: 768px) {
   /* .inner_slide {
     min-width: 100vw;
   } */
   .center-img {
-    width: 60vw;
+    width: 80vw;
+  }
+  .center-text {
+    font-size: 8vw;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -961,4 +1124,166 @@ export default {
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 }
+
+/** menu部分 */
+/** start */
+.menu-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* display:flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center; */
+  /* z-index:9; */
+  /* background-color: #ac3131; */
+}
+
+.menu-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.menu-top-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  display: block;
+  pointer-events: none;
+}
+
+.menu-top-wrapper.active {
+  pointer-events: auto;
+  /* color:#fff; */
+}
+
+.menu-body {
+  position: relative;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  widows: 100%;
+  height: 100%;
+  background-color: #c9171e;
+  /* background:url(../assets/about/bg.png) no-repeat center center;
+  background-size: cover;
+  background-blend-mode: multiply; */
+}
+
+.menu-body .navigator {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-body .center-bg-text {
+  z-index: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  text-indent: -0.1em;
+  pointer-events: none;
+}
+
+.menu-body .bottom-desc {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 6.555vh;
+  font-family: "Ma Shan Zheng", serif;
+}
+
+.menu-body .center-bg-text .txt {
+  color: #d31c23;
+  font-size: 26vw;
+  font-family: "Liu Jian Mao Cao", cursive;
+  font-weight: 400;
+  letter-spacing: -0.001em;
+  white-space: nowrap;
+  transform: rotate(-6deg) translate3d(0, -0.1em, 0);
+}
+
+.menu-body .navigator .nav-list {
+  padding-top: 2.668vh;
+  position: relative;
+}
+
+nav ol,
+nav ul {
+  list-style: none;
+}
+
+li,
+ol,
+ul {
+  list-style: none;
+}
+
+.menu-body .navigator .nav-list .nav-item {
+  position: relative;
+  pointer-events: auto;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.menu-body .navigator .nav-list .nav-item .nav-link:not(:last-child) {
+  padding: 15px 0;
+}
+
+.menu-body .navigator .nav-list .nav-item .nav-link {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: baseline;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0;
+  cursor: pointer;
+  font-size: 2.2rem;
+  font-family: "Ma Shan Zheng", serif;
+  text-shadow: 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000,
+    3px 3px 0 #000;
+}
+
+.menu-body .navigator .nav-list .nav-item.backHome {
+  /* background: url(../assets/btn_bg.png) no-repeat center center;
+  background-size: contain;
+  width:200px;
+  height: 200px; */
+}
+
+.menu-body .navigator .nav-list .nav-item .nav-link small {
+  font-family: "Comfortaa", cursive;
+  padding-left: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/** menu部分 */
+/** end */
 </style>

@@ -28,16 +28,16 @@
         </div>
       </div>
     </div>
-    <div class="hero">
-      <ul id="scene" style="width:60vw;">
+    <div class="parallax">
+      <ul id="scene">
         <li data-depth="0.2">
           <img
-            src="../assets/home/fashion.png"
+            src="../assets/home/fashionpro.jpg"
             alt
-            style="width:40vw; height:auto;border:1px solid #fff;"
+            class="c-h-img"
           />
         </li>
-        <li data-depth="0.6" class="c-text">
+        <li data-depth="0.6" class="c-h-text">
           <div>国潮脸谱</div>
         </li>
       </ul>
@@ -222,32 +222,7 @@ export default {
   color: white;
   background-color: #121212;
 }
-.hero {
-  height: 100vh;
-  width: 100vw;
-  /* background:url('../assets/mark.png') no-repeat center center;
-  background-size: contain;
-  background-blend-mode: overlay; */
-  background-color: #121212;
-  display: flex;
-  flex-flow: wrap column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  z-index: -1;
-}
 
-.c-text {
-  left: 10.5vw !important;
-  margin: 0 auto;
-  font-size: 12vw;
-  font-family: "Zhi Mang Xing", cursive;
-  top: 60% !important;
-  /* height: 100%; */
-  /* transform: translateY(-50%); */
-  text-shadow: 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000,
-    3px 3px 0 #000;
-}
 
 .header {
   z-index: 10;
@@ -306,7 +281,7 @@ export default {
   /* font-family: "Noto Serif SC", serif; */
   font-family: "Ma Shan Zheng", serif;
   font-weight: 600;
-  margin: 0 1em;
+    margin-left:1em;
   letter-spacing: 0.2em;
   text-indent: 0.1em;
   font-size: 1.2em;

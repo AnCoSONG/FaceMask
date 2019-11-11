@@ -52,22 +52,21 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 > Under coding.
 
 - [x] 过渡效果
-- [ ] 所有的文案
+- [x] 所有的文案
 
 > 大部分文案已经OK
 
 - [x] 互动部分后台
-    - [ ] post跨域问题没有解决。
+    - [x] post跨域问题没有解决。
 
 > 差前端功能开发以及前后端联调
 
 - [x] 菜单效果
 
-> 代码比较分散，不容易套。
-
 - [x] scrolldown效果
+- [ ] 完整移动端适配
 
-> 代码分散不好套
+> 还差人物和国潮
 
 ### 草案
 
@@ -77,4 +76,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### BUG
 
-- [ ] 粒子超速
+- [x] 粒子超速
+
+> 离开时destroy

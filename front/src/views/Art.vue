@@ -47,7 +47,7 @@
                 </li>
                 <li class="nav-item">
                   <router-link to="Master" class="nav-link">
-                    脸谱大师
+                    脸谱名家
                     <small>Master</small>
                   </router-link>
                 </li>
@@ -80,16 +80,16 @@
       </div>
     </div>
     <el-backtop :right="80" :bottom="80"></el-backtop>
-    <div class="hero">
-      <ul id="scene" style="width:60vw;">
+    <div class="parallax">
+      <ul id="scene">
         <li data-depth="0.2">
           <img
-            src="../assets/home/art.png"
+            src="../assets/home/artpro.jpg"
             alt
-            style="width:40vw; height:auto;border:1px solid #fff;"
+            class="c-h-img"
           />
         </li>
-        <li data-depth="0.6" class="c-text">
+        <li data-depth="0.6" class="c-h-text">
           <div>脸谱艺术</div>
         </li>
       </ul>
@@ -109,19 +109,19 @@
         <div class="section" id="intro">
           <div class="text" @click="shiftTo('intro')">脸谱介绍</div>
           <div class="img-holder">
-            <img src="../assets/art/introduction.jpg" alt />
+            <img src="../assets/art/intropro.jpg" alt />
           </div>
         </div>
         <div class="section" id="histo">
           <div class="text" @click="shiftTo('histo')">脸谱历史</div>
           <div class="img-holder">
-            <img src="../assets/art/history.jpg" alt />
+            <img src="../assets/art/histopro.jpg" alt />
           </div>
         </div>
         <div class="section" id="exhib">
           <div class="text" @click="shiftTo('exhib')">脸谱展示</div>
           <div class="img-holder">
-            <img src="../assets/art/exhibition.jpg" alt />
+            <img src="../assets/art/exhibpro.jpg" alt />
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
           <elasticButton msg="我有补充？"></elasticButton>
         </div>
       </div>
-      <div class="histo">
+      <div class="histo" style="min-width:100vw;">
         <div class="histo_inner">
           <h1 class="title-text">脸谱历史</h1>
           <h3 class="desc-text">
@@ -183,34 +183,34 @@
           <h1 class="title-text">脸谱展示</h1>
           <div class="mask-list">
             <div class="each-mask" @mouseenter="activateMe(1)" @mouseleave="deactivateMe(1)">
-              <img src="../assets/art/安禄山：《太真外传》.jpg" alt="安禄山" />
+              <img src="../assets/art/安禄山：《太真外传》.png" alt="安禄山" />
             </div>
             <div class="each-mask" @mouseenter="activateMe(2)" @mouseleave="deactivateMe(2)">
-              <img src="../assets/art/程咬金：《贾家楼》.jpg" alt="程咬金" />
+              <img src="../assets/art/程咬金：《贾家楼》.png" alt="程咬金" />
             </div>
             <div class="each-mask" @mouseenter="activateMe(3)" @mouseleave="deactivateMe(3)">
-              <img src="../assets/art/赤福寿：《取金陵》.jpg" alt="赤福寿" />
+              <img src="../assets/art/赤福寿：《取金陵》.png" alt="赤福寿" />
             </div>
             <div
               class="each-mask hidden-xs-only"
               @mouseenter="activateMe(4)"
               @mouseleave="deactivateMe(4)"
             >
-              <img src="../assets/art/廉颇：《将相和》.jpg" alt="廉颇" />
+              <img src="../assets/art/廉颇：《将相和》.png" alt="廉颇" />
             </div>
             <div
               class="each-mask hidden-sm-and-down"
               @mouseenter="activateMe(5)"
               @mouseleave="deactivateMe(5)"
             >
-              <img src="../assets/art/司马懿：《空城计》.jpg" alt="司马懿" />
+              <img src="../assets/art/司马懿：《空城计》.png" alt="司马懿" />
             </div>
             <div
               class="each-mask hidden-md-and-down"
               @mouseenter="activateMe(6)"
               @mouseleave="deactivateMe(6)"
             >
-              <img src="../assets/art/夏侯惇：《博望坡》.jpg" alt="夏侯惇" />
+              <img src="../assets/art/夏侯惇：《博望坡》.png" alt="夏侯惇" />
             </div>
           </div>
           <div class="mask-name">鼠标划动到上方图像查看信息。</div>
@@ -225,7 +225,7 @@
         <h2 class="english">Fancy Mask</h2>
         <h4
           @click="goTo('About')"
-          style="font-family:'Noto Sans SC', serif;cursor:pointer;"
+          style="font-family:'Noto Serif SC', serif;cursor:pointer;"
         >About Us</h4>
         <p>All Copyright Reserved.</p>
       </div>
@@ -258,7 +258,8 @@ export default {
         { name: "司马懿", work: "《空城计》" },
         { name: "夏侯惇", work: "《博望坡》" }
       ],
-      menuOpened: false
+      menuOpened: false,
+      particlesContainer:null
     };
   },
 
@@ -334,7 +335,7 @@ export default {
             $(".menu-top-wrapper").addClass("active"); // 加上pointer-events:auto;开启事件监听。
             $(".header-inner").css("color", "#fff");
             $(".callOutMenu").text("关闭"); // 之后可以变为按钮动画
-            $("body").css("overflow", "hidden");
+            $("body").css("overflow-y", "hidden");
           }
         });
         menuTimeline
@@ -359,7 +360,7 @@ export default {
             $(".header-inner").css("color", ""); //恢复
             $(".menu-top-wrapper").removeClass("active");
             $(".callOutMenu").text("菜单"); // 之后可以变为按钮动画
-            $("body").css("overflow", "auto");
+            $("body").css("overflow-y", "auto");
           }
         });
         menuTimeline
@@ -384,12 +385,13 @@ export default {
       /** 加载视差和粒子 */
       let el = document.getElementById("scene");
       let parallaxInstance = new Parallax(el);
-      var particles = Particles.init({
+      let particles = Particles.init({
         selector: ".particle-bg",
         color: "#000",
         speed: 0.5,
         maxParticles: 100
       });
+      this.particlesContainer = particles;
       // console.log(ParticlesJS())
       // let p = particlesJS('particles-js', particlesJSON)
       // console.log(p)
@@ -671,7 +673,7 @@ export default {
       //======================
 
       //======================
-      /** safari竖排文字排版兼容性问题 */
+      /** safari 竖排文字排版兼容性问题 */
       if (IsSafari()) {
         $("h3").css({ "writing-mode": "horizontal-tb", width: "60vw" });
       }
@@ -751,8 +753,12 @@ export default {
       "clip-path": "circle(100%)",
       "-webkit-clip-path": "circle(100%)"
     });
-    $("body").css("overflow", "auto"); // 清理
-    self.menuOpened = false; // 清理
+    $("body").css("overflow-y", "auto"); // 清理
+    this.menuOpened = false; // 清理
+
+    //清理粒子效果防止叠加
+    this.particlesContainer.destroy();
+    this.particlesConatiner = null;
     this.$store.commit("beginTransite");
     next();
   }
@@ -871,6 +877,7 @@ export default {
 }
 
 .menu-body .bottom-desc {
+  font-family: "Ma Shan Zheng", serif;  
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -893,17 +900,6 @@ export default {
 .menu-body .navigator .nav-list {
   padding-top: 2.668vh;
   position: relative;
-}
-
-nav ol,
-nav ul {
-  list-style: none;
-}
-
-li,
-ol,
-ul {
-  list-style: none;
 }
 
 .menu-body .navigator .nav-list .nav-item {
@@ -1009,11 +1005,12 @@ ul {
   /* font-family: "Noto Serif SC", serif; */
   font-family: "Ma Shan Zheng", serif;
   font-weight: 600;
-  margin: 0 1em;
+  margin-left:1em;
   letter-spacing: 0.2em;
   text-indent: 0.1em;
   font-size: 1.2em;
   cursor: pointer;
+  pointer-events: auto;
   z-index: 10;
   transition: color 300ms cubic-bezier(0.47, 0, 0.745, 0.715);
 }
@@ -1112,18 +1109,18 @@ ul {
 }
 
 .intro {
-  background: url(../assets/art/introduction.jpg) no-repeat center center;
+  background: url(../assets/art/intropro.jpg) no-repeat center center;
   background-size: cover;
   /* background:chocolate; */
 }
 
 .histo {
-  background: url(../assets/art/history.jpg) no-repeat center center;
+  background: url(../assets/art/histopro.jpg) no-repeat center center;
   background-size: cover;
 }
 
 .exhib {
-  background: url(../assets/art/exhibition.jpg) no-repeat center center;
+  background: url(../assets/art/exhibpro.jpg) no-repeat center center;
   background-size: cover;
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
@@ -1143,9 +1140,9 @@ ul {
 .desc-text {
   margin-top: 8vh;
   text-align: left;
-  height: auto;
+  /* height: auto; */
   writing-mode: vertical-rl;
-  height: 40%;
+  height: 40vh;
   line-height: 1.4;
   /* font-size: 2vw; */
   /* font-family: "Noto Serif SC", serif; */
@@ -1194,7 +1191,7 @@ ul {
   /* z-index: 2; */
   width: 10vw;
   height: 10vw;
-  background-color: #666;
+  /* background-color: #666; */
   margin: 0 1vw;
   transition: all 500ms cubic-bezier(0.645, 0.045, 0.355, 1);
   clip-path: circle(40%);
@@ -1256,11 +1253,11 @@ ul {
   z-index: 2;
   background-color: #fff;
   height: 70px;
-  width: auto;
+  width: 86vw;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 0 7vw;
+  margin: 0 auto;
 }
 
 .scrolldown-tip .scrolldown-btn {
@@ -1277,7 +1274,7 @@ ul {
   width: auto;
   height: 100%;
   font-size: 1.2em;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-weight: 700;
 }
 
@@ -1285,13 +1282,22 @@ ul {
 /** End */
 
 /* Small devices (landscape phones, 576px and up) */
-@media (max-width: 768px) {
+@media (max-width: 450px){
   .intro .desc-text {
-    font-size: 4vw;
+    font-size: 4.8vw;
   }
 
   .histo .desc-text {
-    font-size: 3vw;
+    font-size: 4vw;
+  }
+}
+@media (min-width:450px) and (max-width: 768px) {
+  .intro .desc-text {
+    font-size: 3.9vw;
+  }
+
+  .histo .desc-text {
+    font-size: 3.2vw;
   }
 
   .exhib .exhib_inner .mask-list .each-mask {
@@ -1302,10 +1308,18 @@ ul {
   .header .header-inner {
     transform: translate3d(0, 6.3vh, 0);
   }
+
+  .section-list .section {
+    font-size: 3.3rem;
+  }
+
+  .section-list .section .img-holder  {
+    width:90vw;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width:768px) and (max-width: 992px) {
   .exhib .exhib_inner .mask-list .each-mask {
     width: 18vw;
     height: 18vw;
@@ -1316,10 +1330,17 @@ ul {
   .header .header-inner {
     transform: translate3d(0, 6.3vh, 0);
   }
+
+  .section-list .section .img-holder {
+    width:70vw;
+  }
+  .section-list .section {
+    font-size: 3rem;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1200px) {
+@media (min-width:992px) and (max-width: 1200px) {
   /* .inner_slide {
     min-width: 66vw;
   } */
@@ -1329,7 +1350,7 @@ ul {
   }
 
   .histo .desc-text {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
 }
 

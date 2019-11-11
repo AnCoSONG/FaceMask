@@ -47,7 +47,7 @@
                 </li>
                 <li class="nav-item">
                   <router-link to="Master" class="nav-link">
-                    脸谱大师
+                    脸谱名家
                     <small>Master</small>
                   </router-link>
                 </li>
@@ -79,16 +79,12 @@
         </div>
       </div>
     </div>
-    <div class="hero">
-      <ul id="scene" style="width:60vw;">
+    <div class="parallax">
+      <ul id="scene">
         <li data-depth="0.2">
-          <img
-            src="../assets/home/artificial.png"
-            alt
-            style="width:40vw; height:auto;border:1px solid #fff;"
-          />
+          <img src="../assets/home/yourspro.jpg" alt class="c-h-img" />
         </li>
-        <li data-depth="0.6" class="c-text">
+        <li data-depth="0.6" class="c-h-text">
           <div>互动脸谱</div>
         </li>
       </ul>
@@ -108,22 +104,22 @@
           <div class="q-desc-wrap" v-show="started==='not'">
             <div class="q-title">回答一些问题找到属于你的脸谱</div>
             <div class="q-updating-mask">
-              <swiper ref="maskSwiper" :options="swiperOption" style="height:20vw;width:20vw;">
+              <swiper ref="maskSwiper" :options="swiperOption" class="mask-swiper">
                 <swiper-slide class="each-slide">
                   <div class="img-holder">
-                    <img src="../assets/art/安禄山：《太真外传》.jpg" alt="安禄山" />
+                    <img src="../assets/art/安禄山：《太真外传》.png" alt="安禄山" />
                   </div>
                   <div class="name-work">安禄山 《太真外传》</div>
                 </swiper-slide>
                 <swiper-slide class="each-slide">
                   <div class="img-holder">
-                    <img src="../assets/art/程咬金：《贾家楼》.jpg" alt="程咬金" />
+                    <img src="../assets/art/程咬金：《贾家楼》.png" alt="程咬金" />
                   </div>
                   <div class="name-work">程咬金 《贾家楼》</div>
                 </swiper-slide>
                 <swiper-slide class="each-slide">
                   <div class="img-holder">
-                    <img src="../assets/art/司马懿：《空城计》.jpg" alt="司马懿" />
+                    <img src="../assets/art/司马懿：《空城计》.png" alt="司马懿" />
                   </div>
                   <div class="name-work">司马懿 《空城计》</div>
                 </swiper-slide>
@@ -160,7 +156,10 @@
               </div>
               <div class="q-result-mask-name">
                 <h3>{{yoursMask.color+"脸谱"}}</h3>
-                <p>{{yoursMask.feature+"历史上的人物如 "}} <strong class="result-name"> {{yoursMask.people}} </strong>跟你相似</p>
+                <p>
+                  {{yoursMask.feature+"历史上的人物如 "}}
+                  <strong class="result-name">{{yoursMask.people}}</strong>&nbsp;跟你相似
+                </p>
               </div>
             </div>
             <div class="q-result-operator">
@@ -189,7 +188,10 @@
     <div class="footer">
       <h1 class="chinese">百变脸谱</h1>
       <h2 class="english">Fancy Mask</h2>
-      <h4 @click="goTo('About')" style="font-family:'Noto Sans SC', serif;cursor:pointer;">About Us</h4>
+      <h4
+        @click="goTo('About')"
+        style=" font-family: 'Noto Serif SC', serif;;cursor:pointer;"
+      >About Us</h4>
       <p>All Copyright Reserved.</p>
     </div>
   </div>
@@ -201,6 +203,7 @@ import Particles from "particlesjs";
 import elasticButton from "@/components/elasticButton.vue";
 import underlineElasticButton from "@/components/underlineElasticButton.vue";
 import { TimelineMax } from "gsap";
+import { Notification } from "element-ui";
 
 export default {
   name: "Yours",
@@ -325,7 +328,7 @@ export default {
             $(".header-inner").css("color", "#fff");
             $(".menu-top-wrapper").addClass("active"); // 加上pointer-events:auto;开启事件监听。
             $(".callOutMenu").text("关闭"); // 之后可以变为按钮动画
-            $("body").css("overflow", "hidden");
+            $("body").css("overflow-y", "hidden");
           }
         });
         menuTimeline
@@ -350,7 +353,7 @@ export default {
             $(".menu-top-wrapper").removeClass("active");
             $(".header-inner").css("color", "");
             $(".callOutMenu").text("菜单"); // 之后可以变为按钮动画
-            $("body").css("overflow", "auto");
+            $("body").css("overflow-y", "auto");
           }
         });
         menuTimeline
@@ -492,8 +495,7 @@ export default {
     },
     scrollHover() {
       // console.log(this.$refs);
-      if(this.$refs.scrolldown){
-
+      if (this.$refs.scrolldown) {
         this.$refs.scrolldown.play();
       }
     },
@@ -553,7 +555,31 @@ export default {
         });
 
       console.log(res);
-      this.started = "finish";
+      if (res) {
+        if (res.status === 200) {
+          this.yoursMask = res.data;
+          if (res.data.url.indexOf("http") === -1) {
+            let resImgUrl = "https://vaskka.com/lp" + res.data.url;
+            this.yoursMask.url = resImgUrl;
+          }
+          this.started = "finish";
+          Notification.success({
+            title: "成功",
+            message: "已找到你的脸谱"
+          });
+        } else {
+          Notification.error({
+            title: "失败",
+            message: "出现错误:" + res.status
+          });
+        }
+      } else {
+        Notification.error({
+          title: "失败",
+          message: "无法拿到数据"
+        });
+      }
+
       this.isLoading = false;
     },
 
@@ -591,8 +617,8 @@ export default {
       "clip-path": "circle(100%)",
       "-webkit-clip-path": "circle(100%)"
     });
-    $("body").css("overflow", "auto"); // 清理
-    self.menuOpened = false; // 清理
+    $("body").css("overflow-y", "auto"); // 清理
+    this.menuOpened = false; // 清理
     this.$store.commit("beginTransite");
     next();
   }
@@ -688,7 +714,7 @@ export default {
   /* font-family: "Noto Serif SC", serif; */
   font-family: "Ma Shan Zheng", serif;
   font-weight: 600;
-  margin: 0 1em;
+  margin-left: 1em;
   letter-spacing: 0.2em;
   text-indent: 0.1em;
   font-size: 1.2em;
@@ -792,7 +818,17 @@ export default {
   margin-top: 15px;
   font-size: 1.4vw;
   font-weight: 700;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
+}
+
+.main-part
+  .interaction-main-wrapper
+  .interaction-inner
+  .q-desc-wrap
+  .q-updating-mask
+  .mask-swiper {
+  height: 20vw;
+  width: 20vw;
 }
 
 .main-part
@@ -800,8 +836,9 @@ export default {
   .interaction-inner
   .q-desc-wrap
   .q-start-btn {
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-size: 2vw;
+  font-weight: 600;
 }
 
 .main-part .interaction-main-wrapper .interaction-inner .q-question-wrap {
@@ -814,7 +851,7 @@ export default {
   .q-question-wrap
   .question-title {
   font-size: 2rem;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-weight: 700;
 }
 
@@ -854,7 +891,7 @@ export default {
   .q-question-wrap
   .question-operator {
   font-size: 1.2rem;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-weight: 700;
 }
 
@@ -864,7 +901,7 @@ export default {
   .q-result-wrap
   .q-result-title {
   font-size: 1.5rem;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-weight: 700;
 }
 
@@ -907,7 +944,7 @@ export default {
   .q-result-wrap-inner
   .q-result-mask-name {
   font-size: 1.1rem;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-weight: 700;
   width: 30vw;
   padding-left: 3vw;
@@ -991,7 +1028,7 @@ export default {
 }
 
 .result-name:hover {
- color:#444;
+  color: #444;
 }
 
 /** menu部分 */
@@ -1162,11 +1199,11 @@ ul {
   z-index: 2;
   background-color: #fff;
   height: 70px;
-  width: auto;
+  width: 86vw;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 0 7vw;
+  margin: 0 auto;
 }
 
 .scrolldown-tip .scrolldown-btn {
@@ -1182,7 +1219,7 @@ ul {
   width: auto;
   height: 100%;
   font-size: 1.2em;
-  font-family: "Noto Sans SC", serif;
+  font-family: "Noto Serif SC", serif;
   font-weight: 700;
   border-bottom: 1px solid #f3d3d3;
 }
@@ -1212,4 +1249,38 @@ ul {
 }
 
 /** Footer */
+
+@media (max-width: 768px) {
+  .main-part
+    .interaction-main-wrapper
+    .interaction-inner
+    .q-desc-wrap
+    .q-title {
+    font-size: 2rem;
+  }
+
+  .main-part
+  .interaction-main-wrapper
+  .interaction-inner
+  .q-desc-wrap
+  .q-updating-mask
+  .mask-swiper {
+    width: 30vw;
+    height: 30vw;
+  }
+
+  .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-updating-mask .img-holder{
+    width: 20vw;
+    height: auto;
+  }
+
+  .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-updating-mask .name-work{
+    /* margin-left: 30px; */
+    font-size: 1.1rem;
+  }
+
+  .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-start-btn {
+    font-size: 1.5rem;
+  }
+}
 </style>
