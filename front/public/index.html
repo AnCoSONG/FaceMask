@@ -184,6 +184,21 @@
         font-family: "Zhi Mang Xing", cursive;
         /* font-family: "Liu Jian Mao Cao", cursive; */
       }
+      ::selection {
+        color:rgb(206, 57, 57);
+        background-color:transparent;
+      }
+      ::-moz-selection {
+        color:rgb(206, 57, 57);
+        background-color:transparent;
+      }
+
+      ::-webkit-selection{
+        color:rgb(206, 57, 57);
+        background-color:transparent;
+
+      }
+
     </style>
     <script type="text/javascript">
       //随机添加svg到content_text下
@@ -222,10 +237,10 @@
         // now, the page has already been loaded.
 
         // do something when page loaded but have not executed transition process.
-        $(".loading_text").text("加载完成");
         setTimeout(function() {
+          $(".loading_text").text("100");
           // now, 2s after loaded done, time to transite into home page.
-
+          
           // remove all animated class
           $(".animated").removeClass("animated");
           // 缩小成圆圈切换页面
@@ -235,7 +250,7 @@
           });
           window.loaddone = true; // 标记动作执行完成
           // $("#global_load").fadeOut(1000)
-        }, 500);
+        }, 8000);
       }
 
       window.onload = transitionToHome;
@@ -265,7 +280,7 @@
       <div id="global_load">
         <div class="loader">
           <div class="loader_content">
-            <div class="content_text zoomIn delay-1s animated">
+            <div class="content_text zoomIn animated">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 519.68 643.03"
@@ -357,7 +372,7 @@
             </div>
             <div class="circle zoomIn animated fast"></div>
             <div class="loading_text fadeInUpBig faster animated">
-              正在加载
+              请稍等
             </div>
           </div>
         </div>
@@ -395,6 +410,16 @@
           return i * 500;
         }
       });
+
+      const progressNum = document.querySelectorAll('.loading_text')
+      anime({
+        targets: progressNum,
+        direction:'normal',
+        innerText:[0, 99],
+        round:1,
+        duration:8000,
+        easing:'linear'
+      })
       // u-load
       // const svgPath2 = document.querySelectorAll(".u-load");
 

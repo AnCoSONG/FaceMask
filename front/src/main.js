@@ -5,6 +5,7 @@ import store from './store'
 import './plugins/element.js'
 import './plugins/jquery'
 import './plugins/vue-awesome-swiper'
+import './plugins/axios'
 // import './plugins/jquery-smoove' //曲线救国，在jquery中设置jQuery为全局变量再在之后导入时传入立即函数
 
 // import particlesJS from './plugins/particles'

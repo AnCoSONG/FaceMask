@@ -13,18 +13,69 @@
             class="menu-item backbtn"
             style="position:relative"
             @click="goBack()"
-            @mouseenter="tadaBegin"
-            @mouseleave="tadaEnd"
+            @mouseenter="animateBegin('backbtn','swing')"
+            @mouseleave="animateEnd('backbtn','swing')"
           >
             <span
-              style="display:inline-block;padding-top: 0.2em;padding-right: 0.05em;padding-bottom: 0.1em;overflow:hidden"
+              style="display:inline-block;padding-top: 0.2em;padding-right: 0.05em;padding-bottom: 0.1em;overflow:hidden;"
             >
-              <img src="../assets/art/back.svg" alt style="width:1.2em; height:1.2em;" />
+              <img src="../assets/back.png" alt style="width:1.2em; height:1.2em;" />
             </span>
           </div>
         </div>
         <div class="menu hidden-md-and-up">
-          <elasticButton class="menu-item" msg="菜单"></elasticButton>
+          <div
+            class="menu-item callOutMenu"
+            style="font-size:1.8em;"
+            @mouseenter="animateBegin('callOutMenu','tada')"
+            @mouseleave="animateEnd('callOutMenu','tada')"
+          >菜单</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-top-wrapper">
+      <div class="menu-wrapper" style="transform:translateY(100%)">
+        <div class="menu-inner" style="transform:translateY(-100%)">
+          <div class="menu-body">
+            <nav class="navigator">
+              <ul class="nav-list">
+                <li class="nav-item">
+                  <router-link to="Art" class="nav-link">
+                    脸谱艺术
+                    <small>Art</small>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="Master" class="nav-link">
+                    脸谱大师
+                    <small>Master</small>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="Fashion" class="nav-link">
+                    国潮脸谱
+                    <small>Fashion</small>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="Yours" class="nav-link">
+                    互动脸谱
+                    <small>Yours</small>
+                  </router-link>
+                </li>
+                <li class="nav-item backHome">
+                  <router-link to="/" class="nav-link">
+                    返回首页
+                    <small>Home</small>
+                  </router-link>
+                </li>
+              </ul>
+            </nav>
+            <div class="center-bg-text">
+              <span class="txt">百变脸谱</span>
+            </div>
+            <div class="bottom-desc">百变脸谱团队.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +97,11 @@
       <!-- <div class="c-pic" data-depth="0.2">
       </div>-->
       <!-- <div class="c-text" data-depth="0.6">脸谱艺术</div> -->
+    </div>
+    <div class="scrolldown-tip" style="transform: translateY(100%);">
+      <div class="scrolldown-btn" @mouseenter="scrollHover()">
+        <elasticButton ref="scrolldown" msg="向下滑动查看更多   Scroll Down to See More"></elasticButton>
+      </div>
     </div>
     <!-- <elasticButton class="tipText" style="postion:absolute; bottom:100px;" msg="向下滑动查看更多"></elasticButton> -->
     <div class="main-part">
@@ -88,7 +144,7 @@
             抹一小块白粉，俗称小花脸。
           </h3>
         </div>
-        <div class="operator" @click="wannaSupply('intro')">
+        <div class="operator" @click="wannaSupply('介绍')">
           <elasticButton msg="我有补充？"></elasticButton>
         </div>
       </div>
@@ -117,7 +173,7 @@
               花纹直接画在脸上的化妆艺术。
             </p>
           </h3>
-          <div class="operator" @click="wannaSupply('histo')">
+          <div class="operator" @click="wannaSupply('历史')">
             <elasticButton msg="我有补充？"></elasticButton>
           </div>
         </div>
@@ -127,28 +183,38 @@
           <h1 class="title-text">脸谱展示</h1>
           <div class="mask-list">
             <div class="each-mask" @mouseenter="activateMe(1)" @mouseleave="deactivateMe(1)">
-              <img src="../assets/art/安禄山.png" alt="安禄山" />
+              <img src="../assets/art/安禄山：《太真外传》.jpg" alt="安禄山" />
             </div>
             <div class="each-mask" @mouseenter="activateMe(2)" @mouseleave="deactivateMe(2)">
-              <img src="../assets/art/程咬金.png" alt="程咬金" />
+              <img src="../assets/art/程咬金：《贾家楼》.jpg" alt="程咬金" />
             </div>
             <div class="each-mask" @mouseenter="activateMe(3)" @mouseleave="deactivateMe(3)">
-              <img src="../assets/art/赤福寿《取金陵》.png" alt="赤福寿" />
+              <img src="../assets/art/赤福寿：《取金陵》.jpg" alt="赤福寿" />
             </div>
-            <div class="each-mask hidden-xs-only" @mouseenter="activateMe(4)" @mouseleave="deactivateMe(4)">
-              <img src="../assets/art/廉颇.png" alt="廉颇" />
+            <div
+              class="each-mask hidden-xs-only"
+              @mouseenter="activateMe(4)"
+              @mouseleave="deactivateMe(4)"
+            >
+              <img src="../assets/art/廉颇：《将相和》.jpg" alt="廉颇" />
             </div>
-            <div class="each-mask hidden-sm-and-down" @mouseenter="activateMe(5)" @mouseleave="deactivateMe(5)">
-              <img src="../assets/art/司马懿.png" alt="司马懿" />
+            <div
+              class="each-mask hidden-sm-and-down"
+              @mouseenter="activateMe(5)"
+              @mouseleave="deactivateMe(5)"
+            >
+              <img src="../assets/art/司马懿：《空城计》.jpg" alt="司马懿" />
             </div>
-            <div class="each-mask hidden-md-and-down" @mouseenter="activateMe(6)" @mouseleave="deactivateMe(6)">
-              <img src="../assets/art/夏侯惇.png" alt="夏侯惇" />
+            <div
+              class="each-mask hidden-md-and-down"
+              @mouseenter="activateMe(6)"
+              @mouseleave="deactivateMe(6)"
+            >
+              <img src="../assets/art/夏侯惇：《博望坡》.jpg" alt="夏侯惇" />
             </div>
           </div>
-          <div class="mask-name">
-            鼠标划动到上方图像查看信息。
-          </div>
-          <div class="operator" @click="wannaSupply('exhib')">
+          <div class="mask-name">鼠标划动到上方图像查看信息。</div>
+          <div class="operator" @click="wannaSupply('展示')">
             <elasticButton msg="我有补充？"></elasticButton>
           </div>
         </div>
@@ -157,6 +223,10 @@
       <div class="footer">
         <h1 class="chinese">百变脸谱</h1>
         <h2 class="english">Fancy Mask</h2>
+        <h4
+          @click="goTo('About')"
+          style="font-family:'Noto Sans SC', serif;cursor:pointer;"
+        >About Us</h4>
         <p>All Copyright Reserved.</p>
       </div>
     </div>
@@ -170,6 +240,7 @@ import Particles from "particlesjs";
 import elasticButton from "@/components/elasticButton.vue";
 import underlineElasticButton from "@/components/underlineElasticButton.vue";
 import { TimelineMax } from "gsap";
+import { Notification } from 'element-ui'
 
 export default {
   name: "Art",
@@ -179,14 +250,15 @@ export default {
   },
   data() {
     return {
-      maskList:[
-        {name:'安禄山', work: '未知作品'},
-        {name:'程咬金', work: '未知作品'},
-        {name:'赤福寿', work: '《取金陵》'},
-        {name:'廉颇', work: '未知作品'},
-        {name:'司马懿',work: '未知作品'},
-        {name:'夏侯惇', work: '未知作品'}
-      ]
+      maskList: [
+        { name: "安禄山", work: "《太真外传》" },
+        { name: "程咬金", work: "《贾家楼》" },
+        { name: "赤福寿", work: "《取金陵》" },
+        { name: "廉颇", work: "《将相和》" },
+        { name: "司马懿", work: "《空城计》" },
+        { name: "夏侯惇", work: "《博望坡》" }
+      ],
+      menuOpened: false
     };
   },
 
@@ -198,6 +270,21 @@ export default {
       if (window.loaddone && !self.$store.state.loaddone) {
         //加载完成后执行一些动作
         self.$store.commit("loaded");
+        //===================
+        /** scrolldown出现 */
+        anime({
+          targets: ".scrolldown-tip",
+          translateY: "0%",
+          duration: 600,
+          easing: "easeOutCubic",
+          delay: 1000,
+          complete: function() {
+            console.log("finished");
+            self.scrollHover();
+          }
+        });
+        /** scrolldown出现  Done*/
+        //===================
         setTimeout(function() {
           //1s后删除加载器
           $("#global_load").remove();
@@ -210,14 +297,87 @@ export default {
       if (this.$store.state.transiting) {
         // console.log("ss")
         this.$store.commit("DoneTransite");
+        //===================
+        /** scrolldown出现 */
+        anime({
+          targets: ".scrolldown-tip",
+          translateY: "0%",
+          duration: 600,
+          easing: "easeOutCubic",
+          delay: 1000,
+          complete: function() {
+            console.log("finished");
+            self.scrollHover();
+          }
+        });
+        /** scrolldown出现  Done*/
+        //===================
         $("#u-loader").css({
           "clip-path": "circle(0%)",
           "-webkit-clip-path": "circle(0%)"
         });
       }
+      console.log("111");
     }
     /** 监控访问 END */
     //===================
+
+    //=======================
+    /** 菜单呼出绑定 */
+    $(".callOutMenu").click(function(e) {
+      console.log("召唤菜单,alive");
+      if (!self.menuOpened) {
+        let menuTimeline = anime.timeline({
+          easing: "easeOutExpo",
+          complete: function(anim) {
+            self.menuOpened = true;
+            $(".menu-top-wrapper").addClass("active"); // 加上pointer-events:auto;开启事件监听。
+            $(".header-inner").css("color", "#fff");
+            $(".callOutMenu").text("关闭"); // 之后可以变为按钮动画
+            $("body").css("overflow", "hidden");
+          }
+        });
+        menuTimeline
+          .add({
+            targets: ".menu-inner",
+            translateY: "0%",
+            duration: 500
+          })
+          .add({
+            targets: ".menu-wrapper",
+            translateY: "0%",
+            duration: 500,
+            offset: "-=500"
+          });
+      } else {
+        // console.log("已经打开");
+        console.log("正在关闭");
+        let menuTimeline = anime.timeline({
+          easing: "easeInExpo",
+          complete: function(anim) {
+            self.menuOpened = false;
+            $(".header-inner").css("color", ""); //恢复
+            $(".menu-top-wrapper").removeClass("active");
+            $(".callOutMenu").text("菜单"); // 之后可以变为按钮动画
+            $("body").css("overflow", "auto");
+          }
+        });
+        menuTimeline
+          .add({
+            targets: ".menu-inner",
+            translateY: "100%",
+            duration: 500
+          })
+          .add({
+            targets: ".menu-wrapper",
+            translateY: "100%",
+            duration: 500,
+            offset: "-=500"
+          });
+      }
+    });
+    /** 菜单呼出绑定 */
+    //=======================
 
     this.$nextTick(function() {
       //===================
@@ -241,6 +401,14 @@ export default {
       let offsetTop2 = $(".intro").offset().top;
       // console.log(offsetTop);
       $(window).scroll(function(e) {
+        // 菜单阻止滚动
+        // ==============
+        if (self.menuOpened) {
+          e.preventDefault();
+          return false;
+        }
+        // DONE
+        //===============
         let scrollTop = $(window).scrollTop();
 
         // console.log(offsetTop, scrollTop);
@@ -261,6 +429,15 @@ export default {
       //======================
       /**鼠标滚动 */
       $(".art").mousewheel(function(e) {
+        //菜单打开时阻止滚动
+        //=================
+        if (self.menuOpened) {
+          // console.log("Alibe")
+          e.preventDefault();
+          return false;
+        }
+        // Done
+        //=================
         // console.log(e);
         let wheelDelta = e.deltaY;
         if (wheelDelta < 0) {
@@ -282,7 +459,10 @@ export default {
       //======================
       let controller = new ScrollMagic.Controller({ loglevel: 3 });
       // console.log(controller)
-      let timelineEffectText = new TimelineMax({ paused: true });
+      let timelineEffectText = new TimelineMax({
+        paused: true,
+        align: "start"
+      });
       timelineEffectText
         .fromTo(
           ".main-part .section-list .section:nth-child(1)",
@@ -313,7 +493,10 @@ export default {
         .setTween(timelineEffectText.play());
 
       // let controllerIntro = new ScrollMagic.Controller({loglevel:3})
-      let timelineEffectIntro = new TimelineMax({ paused: true });
+      let timelineEffectIntro = new TimelineMax({
+        paused: true,
+        align: "start"
+      });
       timelineEffectIntro
         .fromTo(
           ".intro .intro_inner h1",
@@ -343,7 +526,10 @@ export default {
         .setTween(timelineEffectIntro.play());
 
       // let controllerHisto = new ScrollMagic.Controller({ loglevel: 3});
-      let timelineEffectHisto = new TimelineMax({ paused: true });
+      let timelineEffectHisto = new TimelineMax({
+        paused: true,
+        align: "start"
+      });
       timelineEffectHisto
         .fromTo(
           ".histo .histo_inner h1",
@@ -413,17 +599,17 @@ export default {
         .fromTo(
           ".exhib .exhib_inner .mask-name",
           0.75,
-          { autoAlpha: 0, y: -128},
-          { autoAlpha: 1, y: 0},
+          { autoAlpha: 0, y: -128 },
+          { autoAlpha: 1, y: 0 },
           "-=0.25"
         )
         .fromTo(
           ".exhib .exhib_inner .operator",
           0.75,
-          { autoAlpha:0, y: -128},
-          { autoAlpha:1, y: 0},
+          { autoAlpha: 0, y: -128 },
+          { autoAlpha: 1, y: 0 },
           "-=0.25"
-        )
+        );
       new ScrollMagic.Scene({
         triggerElement: ".exhib",
         triggerHook: "onEnter",
@@ -489,7 +675,7 @@ export default {
       if (IsSafari()) {
         $("h3").css({ "writing-mode": "horizontal-tb", width: "60vw" });
       }
-      /** safari竖排文字排版兼容性问题 */
+      /** safari竖排文字排版兼容性问题 Done*/
       //=====================
     });
   },
@@ -504,50 +690,59 @@ export default {
       $("html,body").animate({ scrollTop: topOf }, 2000, "easeInOutExpo");
     },
     wannaSupply(partname) {
-      alert("You wanna supply "+partname);
+      Notification.warning({
+          title: '警告',
+          message: "论坛功能正在搭建，届时您可以去" + partname+"版块发帖补充。",
+        });
     },
     goBack() {
       this.$router.go(-1);
     },
-    tadaBegin() {
-      $(".backbtn").addClass("animated swing");
+    scrollHover() {
+      // console.log(this.$refs);
+      if(this.$refs.scrolldown){
+
+        this.$refs.scrolldown.play();
+      }
     },
-    tadaEnd() {
-      $(".backbtn").removeClass("animated swing");
+    animateBegin(className, animateName) {
+      $("." + className).addClass("animated " + animateName);
+    },
+    animateEnd(className, animateName) {
+      $("." + className).removeClass("animated " + animateName);
     },
     activateMe(num) {
       let self = this;
       let seq = num - 1;
       let allMask = $(".each-mask");
       for (let i = 0; i < allMask.length; i++) {
-        if(i===seq){
-          $('.each-mask:eq('+i+')').css({
-            transform: 'scale(1.3)',
-            clipPath:'cirlce(100%)',
-            '-webkit-clip-path':'circle(100%)'
-          })
-          let maskInfo = self.maskList[i]
-          $('.mask-name').text(maskInfo.name+" — "+maskInfo.work)
-        }else{
-          $('.each-mask:eq('+i+')').css({
-            transform: 'scale(0.8)',
-            filter: 'blur(1px) brightness(0.3)'
-          })
+        if (i === seq) {
+          $(".each-mask:eq(" + i + ")").css({
+            transform: "scale(1.3)",
+            clipPath: "cirlce(100%)",
+            "-webkit-clip-path": "circle(100%)"
+          });
+          let maskInfo = self.maskList[i];
+          $(".mask-name").text(maskInfo.name + " — " + maskInfo.work);
+        } else {
+          $(".each-mask:eq(" + i + ")").css({
+            transform: "scale(0.8)",
+            filter: "blur(1px) brightness(0.3)"
+          });
         }
       }
     },
     deactivateMe(num) {
-      $('.each-mask').css({
-        filter: 'none',
-        transform: 'scale(1)'
-
-      })
-      let seq = num - 1;
-      $('.each-mask:eq('+seq+')').css({
-        clipPath: 'cirlce(40%)',
-        '-webkit-clip-path':'circle(40%)'
+      $(".each-mask").css({
+        filter: "none",
+        transform: "scale(1)"
       });
-      $('.mask-name').text("鼠标划动到脸谱上查看信息。")
+      let seq = num - 1;
+      $(".each-mask:eq(" + seq + ")").css({
+        clipPath: "cirlce(40%)",
+        "-webkit-clip-path": "circle(40%)"
+      });
+      $(".mask-name").text("鼠标划动到脸谱上查看信息。");
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -556,6 +751,8 @@ export default {
       "clip-path": "circle(100%)",
       "-webkit-clip-path": "circle(100%)"
     });
+    $("body").css("overflow", "auto"); // 清理
+    self.menuOpened = false; // 清理
     this.$store.commit("beginTransite");
     next();
   }
@@ -594,6 +791,167 @@ export default {
     3px 3px 0 #000;
 }
 
+/** menu部分 */
+/** start */
+.menu-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* display:flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center; */
+  /* z-index:9; */
+  /* background-color: #ac3131; */
+}
+
+.menu-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.menu-top-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  display: block;
+  pointer-events: none;
+}
+
+.menu-top-wrapper.active {
+  pointer-events: auto;
+  /* color:#fff; */
+}
+
+.menu-body {
+  position: relative;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  widows: 100%;
+  height: 100%;
+  background-color: #c9171e;
+  /* background:url(../assets/about/bg.png) no-repeat center center;
+  background-size: cover;
+  background-blend-mode: multiply; */
+}
+
+.menu-body .navigator {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-body .center-bg-text {
+  z-index: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  text-indent: -0.1em;
+  pointer-events: none;
+}
+
+.menu-body .bottom-desc {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 6.555vh;
+}
+
+.menu-body .center-bg-text .txt {
+  color: #d31c23;
+  font-size: 26vw;
+  font-family: "Liu Jian Mao Cao", cursive;
+  font-weight: 400;
+  letter-spacing: -0.001em;
+  white-space: nowrap;
+  transform: rotate(-6deg) translate3d(0, -0.1em, 0);
+}
+
+.menu-body .navigator .nav-list {
+  padding-top: 2.668vh;
+  position: relative;
+}
+
+nav ol,
+nav ul {
+  list-style: none;
+}
+
+li,
+ol,
+ul {
+  list-style: none;
+}
+
+.menu-body .navigator .nav-list .nav-item {
+  position: relative;
+  pointer-events: auto;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.menu-body .navigator .nav-list .nav-item .nav-link:not(:last-child) {
+  padding: 15px 0;
+}
+
+.menu-body .navigator .nav-list .nav-item .nav-link {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: baseline;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0;
+  cursor: pointer;
+  font-size: 2.2rem;
+  font-family: "Ma Shan Zheng", serif;
+  text-shadow: 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000,
+    3px 3px 0 #000;
+}
+
+.menu-body .navigator .nav-list .nav-item.backHome {
+  /* background: url(../assets/btn_bg.png) no-repeat center center;
+  background-size: contain;
+  width:200px;
+  height: 200px; */
+}
+
+.menu-body .navigator .nav-list .nav-item .nav-link small {
+  font-family: "Comfortaa", cursive;
+  padding-left: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/** menu部分 */
+/** end */
+
 .header {
   z-index: 10;
   position: fixed;
@@ -614,8 +972,8 @@ export default {
   position: relative;
   height: 100%;
   padding: 0 7vw;
-  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s,
-    -webkit-transform cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+  transition: transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s,
+    -webkit-transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   transform: translate3d(0, 5.3vh, 0);
 }
 
@@ -847,7 +1205,8 @@ export default {
 
 .exhib .exhib_inner .mask-name {
   font-family: "Ma Shan Zheng", serif;
-  font-size: 1.5em;  
+  font-size: 1.5em;
+  margin-top: 2vh;
 }
 
 .exhib .exhib_inner .mask-list .each-mask img {
@@ -855,7 +1214,6 @@ export default {
   height: auto;
   object-fit: cover;
 }
-
 
 /* .exhib .interlayer{
   z-index:2;
@@ -867,6 +1225,8 @@ export default {
   width:100%;
   height: 100%;
 } */
+
+/** Footer */
 
 .footer {
   height: auto;
@@ -883,9 +1243,46 @@ export default {
   margin: 20px;
 }
 
+/** Footer */
+
 .el-backtop {
   color: #121212 !important;
 }
+
+/** Scroll Down */
+/** start */
+.scrolldown-tip {
+  position: absolute;
+  z-index: 2;
+  background-color: #fff;
+  height: 70px;
+  width: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 7vw;
+}
+
+.scrolldown-tip .scrolldown-btn {
+  border-bottom: 1px solid #f3d3d3;
+  color: #222;
+  padding: 0 7.1428vw;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  /* vertical-align: baseline; */
+  width: auto;
+  height: 100%;
+  font-size: 1.2em;
+  font-family: "Noto Sans SC", serif;
+  font-weight: 700;
+}
+
+/** Scroll Down */
+/** End */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 768px) {
@@ -901,6 +1298,10 @@ export default {
     width: 20vw;
     height: 20vw;
   }
+
+  .header .header-inner {
+    transform: translate3d(0, 6.3vh, 0);
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
@@ -911,6 +1312,9 @@ export default {
   }
   .histo .desc-text {
     font-size: 2.5vw;
+  }
+  .header .header-inner {
+    transform: translate3d(0, 6.3vh, 0);
   }
 }
 

@@ -185,6 +185,7 @@ export default {
               this.refresh = false;
               this.$nextTick(() => {
                 this.refresh = true;
+                // this.$refs.uln.play()
                 this.$nextTick(() => {
                   $("#" + this.currentName).click(function(e) {
                     self.goTo(name);
@@ -565,6 +566,7 @@ export default {
   align-content: center;
   align-items: center;
   overflow: hidden;
+  cursor:hand;
 }
 
 .bg {
@@ -647,6 +649,7 @@ export default {
   letter-spacing: 0.3em;
   margin-bottom: 4vw;
   text-indent: 0.3em;
+  pointer-events: none;
 }
 
 #fancy_wrap .main .description {
@@ -656,11 +659,13 @@ export default {
   letter-spacing: 0.2em;
   text-shadow: 0 0.5px 0 #000, 0 -0.5px 0 #000, 0.5px 0 0 #000, -0.5px 0 0 #000,
     2px 2px 0 #000;
+    pointer-events: none;
 }
 
 .home .home_inner {
   /* display: none; */
   /* visibility: hidden; */
+  cursor: grab;
   position: absolute;
   clip-path: circle(0%);
   width: 100%;

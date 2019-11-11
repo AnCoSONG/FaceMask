@@ -31,7 +31,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     - [x] 往下伸介绍、历史、展示
     - [x] 文案内容制作
     - [x] 展示部分信息呈现效果
-- [ ] About页面
+- [x] About页面
 
 > 初版完成
 
@@ -47,7 +47,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 > Under coding.
 
-- [ ] 互动页面
+- [x] 互动页面
 
 > Under coding.
 
@@ -56,15 +56,24 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 > 大部分文案已经OK
 
-- [ ] 互动部分后台
+- [x] 互动部分后台
+    - [ ] post跨域问题没有解决。
 
 > 差前端功能开发以及前后端联调
 
-- [ ] 菜单效果
+- [x] 菜单效果
+
+> 代码比较分散，不容易套。
+
+- [x] scrolldown效果
+
+> 代码分散不好套
 
 ### 草案
 
 - [ ] 论坛页面
+
+> 在论坛入口加入了正在搭建的提示。
 
 ### BUG
 

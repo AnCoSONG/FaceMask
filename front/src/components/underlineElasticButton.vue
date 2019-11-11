@@ -101,7 +101,7 @@ export default {
 .link::after {
     content: '';
     position: absolute;
-    background-color: white;
+    background-color: #fff;
     z-index: -1;
     height: 3%;
 }

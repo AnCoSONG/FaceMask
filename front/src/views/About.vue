@@ -5,7 +5,7 @@
       <h3 style="font-family:'Noto Sans SC', serif;font-weight:700;">About Us</h3>
     </h1>
     <h2 style="margin:100px 0;">
-      <p>一个临时拼凑的小团队</p>
+      <p>一个临时拼凑的小团队。</p>
       <p>一群努力平凡的人。</p>
     </h2>
     <h4 @click="goBack()" style="font-family:'Noto Sans SC', serif;font-weight:700;">

@@ -19,7 +19,7 @@
             <span
               style="display:inline-block;padding-top: 0.2em;padding-right: 0.05em;padding-bottom: 0.1em;overflow:hidden"
             >
-              <img src="../assets/art/back.svg" alt style="width:1.2em; height:1.2em;" />
+              <img src="../assets/art/返回.png" alt style="width:1.2em; height:1.2em;" />
             </span>
           </div>
         </div>
