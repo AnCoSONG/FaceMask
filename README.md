@@ -33,23 +33,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     - [x] 展示部分信息呈现效果
 - [x] About页面
 
-> 初版完成
-
 - [x] 404页面
 
-> 纯英文配脸谱背景，可能需要改成中文
+- [x] 人物页面
 
-- [ ] 人物页面
-
-> Under coding.
-
-- [ ] 国潮页面
-
-> Under coding.
+- [x] 国潮页面
 
 - [x] 互动页面
-
-> Under coding.
 
 - [x] 过渡效果
 - [x] 所有的文案
@@ -64,9 +54,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [x] 菜单效果
 
 - [x] scrolldown效果
-- [ ] 完整移动端适配
+- [x] 完整移动端适配
 
-> 还差人物和国潮
+> 基本完成
 
 ### 草案
 

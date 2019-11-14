@@ -79,6 +79,7 @@
         </div>
       </div>
     </div>
+    <el-backtop :right="80" :bottom="80"></el-backtop>
     <div class="parallax">
       <ul id="scene">
         <li data-depth="0.2">
@@ -152,7 +153,7 @@
             <div class="q-result-title">这是我们根据你的性格为你选择的脸谱人物。</div>
             <div class="q-result-wrap-inner">
               <div class="img-holder">
-                <img :src="yoursMask.url" alt="你的脸谱" />
+                <img :src="yoursMask.base64?yoursMask.base64:yoursMask.url" alt="你的脸谱" />
               </div>
               <div class="q-result-mask-name">
                 <h3>{{yoursMask.color+"脸谱"}}</h3>
@@ -246,7 +247,7 @@ export default {
         color: "白色",
         feature: "代表着阴险、奸诈、飞扬、肃煞的性格",
         people: "曹操",
-        url: "https://vaskka.com/lp/static/picture/white/0.jpg"
+        url: "../assets/loading.gif"
       } //存储服务器识别结果
     };
   },
@@ -562,6 +563,12 @@ export default {
             let resImgUrl = "https://vaskka.com/lp" + res.data.url;
             this.yoursMask.url = resImgUrl;
           }
+          if (res.data.base64){
+            let base64Url = " data:image/png;base64,"+res.data.base64;
+            this.yoursMask.base64 = base64Url;
+          }else{
+            this.yoursMask.base64 = null;
+          }
           this.started = "finish";
           Notification.success({
             title: "成功",
@@ -585,7 +592,7 @@ export default {
 
     shareToThird(platname) {
       console.log("Share to ", platname);
-      let url = "https://anco.fun";
+      let url = "https://vaskka.com/lp/main/";
       let title = `我的性格对应脸谱的是${this.yoursMask.color}脸谱, 你的呢？`;
       let desc = "在？来看下你是什么脸谱";
       let summary = "来这里看看你的性格对应什么脸谱吧";
@@ -687,7 +694,7 @@ export default {
   pointer-events: auto;
   font-weight: 700;
   font-family: "Liu Jian Mao Cao", cursive;
-
+  margin-left: 1em;
   font-size: 2em;
   /* pointer-events: none; */
   cursor: pointer;
@@ -721,6 +728,10 @@ export default {
   cursor: pointer;
   z-index: 10;
   transition: color 300ms cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+.header .header-inner .menu .menu-item:last-child {
+  margin-right: 1em;
 }
 
 .main-part {
@@ -761,7 +772,7 @@ export default {
 }
 
 .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-title {
-  font-size: 2.4vw;
+  font-size: 2.5vw;
   font-family: "Ma Shan Zheng", serif;
 }
 
@@ -1203,7 +1214,7 @@ ul {
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 0 auto;
+  margin: 0 7vw;
 }
 
 .scrolldown-tip .scrolldown-btn {
@@ -1222,6 +1233,12 @@ ul {
   font-family: "Noto Serif SC", serif;
   font-weight: 700;
   border-bottom: 1px solid #f3d3d3;
+}
+
+@media (max-width:768px){
+  .scrolldown-tip .scrolldown-btn{
+    font-size: 1em;
+  }
 }
 
 /** Scroll Down */
@@ -1270,17 +1287,23 @@ ul {
   }
 
   .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-updating-mask .img-holder{
-    width: 20vw;
+    width: 16vw;
     height: auto;
   }
 
   .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-updating-mask .name-work{
     /* margin-left: 30px; */
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 
   .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-start-btn {
     font-size: 1.5rem;
+  }
+}
+
+@media (min-width:768px) and (max-width:992px){
+  .main-part .interaction-main-wrapper .interaction-inner .q-desc-wrap .q-title{
+    font-size:2rem;
   }
 }
 </style>

@@ -83,7 +83,7 @@
         <div class="center-mark"></div>
         <div class="content">
           <div class="main row">
-            <div class="side-title col-lg-2">
+            <div class="side-title col-lg-2 hidden-xs-only">
               <span id="cur">{{currentPage}}</span>
               <span id="marker">&#9;&#x26AC;&nbsp;&#9;</span>
               <span id="max">{{maxPage}}</span>
@@ -743,8 +743,9 @@ export default {
   pointer-events: auto;
   font-weight: 700;
   font-family: "Lakki Reddy", cursive;
-  font-size: 1.5em;
+  font-size: 2em;
   cursor: pointer;
+  line-height: 2;
 }
 
 .header .header-inner .menu .menu-item {
@@ -1072,7 +1073,7 @@ export default {
 
 @media (max-width: 450px) {
   .center-text {
-    font-size: 3rem;
+    font-size: 11vw;
     left: 50%;
     top: 90%;
     transform: translate(-50%, -50%);
@@ -1080,6 +1081,17 @@ export default {
 
   .center-img {
     width: 80vw;
+  }
+
+  .footer > div {
+    padding-top:10px;
+  }
+  .content {
+    transform: translateY(-50px);
+  }
+
+  .footer {
+    transform: translate(15px, -50px)
   }
 }
 @media (min-width: 450px) and (max-width: 768px) {
@@ -1090,10 +1102,22 @@ export default {
     width: 80vw;
   }
   .center-text {
-    font-size: 8vw;
+    font-size: 10vw;
     left: 50%;
     top: 90%;
     transform: translate(-50%, -50%);
+  }
+
+  .footer > div {
+    padding-top:10px;
+  }
+
+  .content {
+    transform: translateY(-50px);
+  }
+
+  .footer {
+    transform: translate(15px, -50px)
   }
 }
 

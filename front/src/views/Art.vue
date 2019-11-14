@@ -1242,10 +1242,6 @@ export default {
 
 /** Footer */
 
-.el-backtop {
-  color: #121212 !important;
-}
-
 /** Scroll Down */
 /** start */
 .scrolldown-tip {
@@ -1289,6 +1285,23 @@ export default {
 
   .histo .desc-text {
     font-size: 4vw;
+  }
+
+  .exhib .exhib_inner .mask-list .each-mask {
+    width: 26vw;
+    height: 26vw;
+  }
+
+  .header .header-inner {
+    transform: translate3d(0, 6.3vh, 0);
+  }
+
+  .section-list .section {
+    font-size: 3.3rem;
+  }
+
+  .section-list .section .img-holder  {
+    width:90vw;
   }
 }
 @media (min-width:450px) and (max-width: 768px) {

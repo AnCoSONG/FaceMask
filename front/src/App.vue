@@ -43,6 +43,10 @@ export default {
   /* overflow-x: hidden; */
 }
 
+.el-backtop {
+  color: #121212 !important;
+}
+
 .swiper-wrapper {
   /* 改变swiper原始的滑动效果 */
   transition-timing-function: cubic-bezier(1, 0, 0, 1) !important;
