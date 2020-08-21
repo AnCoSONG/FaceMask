@@ -1,5 +1,9 @@
 # Fancy Mask <small>百变脸谱</small>
 
+**Redeploy to this site: http://fancy-mask.anco.fun**, welcome to visit.
+
+> Backend service has been shut down, some of functions may not work.
+
 ## Project setup
 ```
 cd front
